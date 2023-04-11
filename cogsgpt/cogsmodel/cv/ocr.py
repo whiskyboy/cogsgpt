@@ -1,6 +1,6 @@
 from enum import Enum
 import os
-from typing import Optional, Type
+from typing import Dict, Optional, Type
 
 import azure.ai.vision as sdk
 from azure.ai.formrecognizer import DocumentAnalysisClient
@@ -21,7 +21,7 @@ class OCRModel(BaseModel):
         self.analysis_options = sdk.ImageAnalysisOptions()
         self.analysis_options.features = sdk.ImageAnalysisFeature.TEXT
 
-    def recognize_text(self, image_file: str, language: str = "en") -> Optional[str]:
+    def recognize_text(self, image_file: str, language: str = "en") -> Optional[Dict]:
         image_src = detect_file_source(image_file)
         if image_src == FileSource.LOCAL:
             vision_source = sdk.VisionSource(filename=image_file)
@@ -36,11 +36,14 @@ class OCRModel(BaseModel):
         result = image_analyzer.analyze()
 
         if result.reason == sdk.ImageAnalysisResultReason.ANALYZED and result.text is not None:
-            return '\n'.join([line.content for line in result.text.lines])
+            content = '\n'.join([line.content for line in result.text.lines])
+            return {
+                "content": content
+            }
         else:
-            return ''
+            return {}
 
-    def run(self, *args, **kwargs) -> Optional[str]:
+    def run(self, *args, **kwargs) -> Optional[Dict]:
         image_file = kwargs[ArgsType.IMAGE.value]
         language = kwargs.get("language", "en")
         return self.recognize_text(image_file, language)
@@ -58,11 +61,16 @@ class FormRecognizerModel(BaseModel):
             endpoint=COGS_ENDPOINT,
             credential=AzureKeyCredential(COGS_KEY)
         )
-        self.document_exactors = {
+        self.document_extractors = {
             FormRecognizerModelId.PREBUILT_READ.value: self.extract_prebuilt_read
         }
 
-    def analyze_document(self, document_file: str, model_id: str = FormRecognizerModelId.PREBUILT_READ.value) -> Optional[Type]:
+    def extract_prebuilt_read(self, analyze_result: Type) -> Optional[Dict]:
+        return {
+            "content": analyze_result.content
+        }
+
+    def analyze_document(self, document_file: str, model_id: str = FormRecognizerModelId.PREBUILT_READ.value) -> Optional[Dict]:
         document_src = detect_file_source(document_file)
         if document_src == FileSource.LOCAL:
             with open(document_file, "rb") as f:
@@ -77,16 +85,11 @@ class FormRecognizerModel(BaseModel):
             raise ValueError(f"Invalid document source: {document_file}")
 
         result = poller.result()
-        text = self.document_exactors[model_id](result)
+        text = self.document_extractors[model_id](result)
 
-        return str(text)
+        return text
 
-    def extract_prebuilt_read(self, analyze_result: Type) -> Optional[str]:
-        return {
-            "content": analyze_result.content
-        }
-
-    def run(self, *args, **kwargs) -> Optional[str]:
+    def run(self, *args, **kwargs) -> Optional[Dict]:
         document_file = kwargs[ArgsType.IMAGE.value]
         model_id = kwargs.get("model_id", FormRecognizerModelId.PREBUILT_READ.value)
         return self.analyze_document(document_file, model_id)
