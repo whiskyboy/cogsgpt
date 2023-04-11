@@ -1,5 +1,4 @@
 import abc
-from typing import Dict, Optional
 
 
 class BaseModel(abc.ABC):
@@ -7,6 +6,6 @@ class BaseModel(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def run(self, *args, **kwargs) -> Optional[Dict]:
+    def run(self, *args, **kwargs) -> str:
         pass
 

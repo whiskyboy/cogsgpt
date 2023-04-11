@@ -1,5 +1,5 @@
 import os
-from typing import Dict, Optional
+from typing import Dict, List
 
 import azure.ai.vision as sdk
 from cogsgpt.args import ArgsType
@@ -19,11 +19,21 @@ class ImageAnalysisModel(BaseModel):
         self.analysis_options.features = (
             sdk.ImageAnalysisFeature.CAPTION |
             sdk.ImageAnalysisFeature.OBJECTS |
-            sdk.ImageAnalysisFeature.TEXT |
             sdk.ImageAnalysisFeature.TAGS
         )
 
-    def analyze_image(self, image_file: str, language: str = "en") -> Optional[Dict]:
+    def _parse_result(self, result: sdk.ImageAnalysisResult) -> Dict:
+        result_dict = {}
+        if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
+            if result.caption is not None:
+                result_dict["caption"] = result.caption.content
+            if result.objects is not None:
+                result_dict["objects"] = [obj.name for obj in result.objects]
+            if result.tags is not None:
+                result_dict["tags"] = [tag.name for tag in result.tags]
+        return result_dict
+
+    def _analyze_image(self, image_file: str, language: str = "en") -> Dict:
         image_src = detect_file_source(image_file)
         if image_src == FileSource.LOCAL:
             vision_source = sdk.VisionSource(filename=image_file)
@@ -37,33 +47,39 @@ class ImageAnalysisModel(BaseModel):
         image_analyzer = sdk.ImageAnalyzer(self.service_options, vision_source, self.analysis_options)
         result = image_analyzer.analyze()
 
-        if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
-            caption = ""
-            if result.caption is not None:
-                caption = result.caption.content
+        return self._parse_result(result)
 
-            tags = []
-            if result.tags is not None:
-                tags = [tag.name for tag in result.tags]
-
-            objects = []
-            if result.objects is not None:
-                objects = [obj.name for obj in result.objects]
-
-            text = []
-            if result.text is not None:
-                text = '\n'.join([line.content for line in result.text.lines])
-
-            return {
-                "caption": caption,
-                "tags": tags,
-                "objects": objects,
-                "text": text
-            }
-        else:
-            return {}
-
-    def run(self, *args, **kwargs) -> Optional[Dict]:
+    def run(self, *args, **kwargs) -> str:
         image_file = kwargs[ArgsType.IMAGE.value]
         language = kwargs.get("language", "en")
-        return self.analyze_image(image_file, language)
+        return str(self._analyze_image(image_file, language))
+
+
+class ImageCaptionModel(ImageAnalysisModel):
+    def __init__(self) -> None:
+        super().__init__()
+        self.analysis_options.features = sdk.ImageAnalysisFeature.CAPTION
+
+    def _analyze_image(self, image_file: str, language: str = "en") -> str:
+        result = super()._analyze_image(image_file, language)
+        return result.get("caption", "")
+
+
+class ObjectDetectionModel(ImageAnalysisModel):
+    def __init__(self) -> None:
+        super().__init__()
+        self.analysis_options.features = sdk.ImageAnalysisFeature.OBJECTS
+
+    def _analyze_image(self, image_file: str, language: str = "en") -> List:
+        result = super()._analyze_image(image_file, language)
+        return result.get("objects", [])
+
+
+class ImageTaggingModel(ImageAnalysisModel):
+    def __init__(self) -> None:
+        super().__init__()
+        self.analysis_options.features = sdk.ImageAnalysisFeature.TAGS
+
+    def _analyze_image(self, image_file: str, language: str = "en") -> List:
+        result = super()._analyze_image(image_file, language)
+        return result.get("tags", [])
