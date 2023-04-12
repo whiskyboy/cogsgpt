@@ -6,9 +6,10 @@ import azure.ai.vision as sdk
 from azure.ai.formrecognizer import DocumentAnalysisClient
 from azure.core.credentials import AzureKeyCredential
 
+from cogsgpt.args import ArgsType
 from cogsgpt.cogsmodel import BaseModel
 from cogsgpt.utils import FileSource, detect_file_source
-from cogsgpt.args import ArgsType
+
 
 COGS_KEY = os.environ['COGS_KEY']
 COGS_ENDPOINT = os.environ['COGS_ENDPOINT']

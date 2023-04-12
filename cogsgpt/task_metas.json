@@ -40,5 +40,19 @@
         "args": {
             "image": "image_url or <GENERATED>-dep_id"
         }
+    },
+    {
+        "task": "text2speech",
+        "description": "Convert input text into humanlike synthesized speech",
+        "args": {
+            "text": "text or <GENERATED>-dep_id"
+        }
+    },
+    {
+        "task": "speech2text",
+        "description": "Transcribe audio into text",
+        "args": {
+            "audio": "audio_url or <GENERATED>-dep_id"
+        }
     }
 ]

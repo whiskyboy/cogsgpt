@@ -1,4 +1,5 @@
 azure-ai-vision # Image Analysis 4.0
 azure-ai-formrecognizer
+azure-cognitiveservices-speech
 langchain
 openai

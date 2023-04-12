@@ -2,10 +2,11 @@ import os
 from typing import Dict, List
 
 import azure.ai.vision as sdk
-from cogsgpt.args import ArgsType
 
+from cogsgpt.args import ArgsType
 from cogsgpt.cogsmodel import BaseModel
 from cogsgpt.utils import FileSource, detect_file_source
+
 
 COGS_KEY = os.environ['COGS_KEY']
 COGS_ENDPOINT = os.environ['COGS_ENDPOINT']

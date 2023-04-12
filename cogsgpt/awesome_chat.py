@@ -36,6 +36,8 @@ TaskMap = {
     "image-analysis": ImageAnalysisModel,
     "OCR": OCRModel,
     "form-recognizer": FormRecognizerModel,
+    "text2speech": Text2SpeechModel,
+    "speech2text": Speech2TextModel,
 }
 
 
@@ -158,15 +160,18 @@ class CogsGPT():
 
     def _execute_tasks(self, task_list: List[Dict]) -> List[Dict]:
         for task in task_list:
-            task_name = task["task"]
-            if task_name not in TaskMap:
-                logger.warning(f"Task {task_name} not supported")
-            else:
-                task_model = TaskMap[task_name]()
-                task["args"] = self._collect_deps_results(task["args"], task_list)
-                logger.info(f"Task {task_name} args: {task['args']}")
-                task["result"] = task_model.run(**task["args"])
-                logger.info(f"Task {task_name} result: {task['result']}")
+            try:
+                task_name = task["task"]
+                if task_name not in TaskMap:
+                    logger.warning(f"Task {task_name} not supported")
+                else:
+                    task_model = TaskMap[task_name]()
+                    task["args"] = self._collect_deps_results(task["args"], task_list)
+                    logger.info(f"Task {task_name} args: {task['args']}")
+                    task["result"] = task_model.run(**task["args"])
+                    logger.info(f"Task {task_name} result: {task['result']}")
+            except Exception as e:
+                logger.error(f"Task {task_name} execute failed: {e}")
         return task_list
 
     def _generate_response(self, human_input: str, task_result_list: List[Dict]) -> str:
