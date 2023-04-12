@@ -1,0 +1,27 @@
+[
+    {
+        "role": "user",
+        "content": "Translate the text in /a.jpg"
+    },
+    {
+        "role": "assistant",
+        "content": "[{\"task\": \"OCR\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"/a.jpg\" }}]"
+    },
+    {
+        "role":"user",
+        "content":"Look at /e.jpg, can you tell me how many objects in the picture?"
+    },
+    {
+        "role":"assistant",
+        "content":"[{\"task\": \"object-detection\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"/e.jpg\" }}]"
+    },
+
+    {
+        "role":"user",
+        "content":"given a document /images/e.jpeg, answer me what is the student's name? And describe the image with text"
+    },
+    {
+        "role":"assistant",
+        "content":"[{\"task\": \"form-recognizer\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"/images/e.jpeg\"}}, {\"task\": \"image-caption\", \"id\": 1, \"dep\": [-1], \"args\": {\"image\": \"/images/e.jpeg\" }}]"
+    }
+]

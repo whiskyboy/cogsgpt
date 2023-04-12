@@ -1,0 +1,44 @@
+[
+    {
+        "task": "image-caption",
+        "description": "Generate a caption of an image in human-readable language, using complete sentences.",
+        "args": {
+            "image": "image_url or <GENERATED>-dep_id"
+        }
+    },
+    {
+        "task": "object-detection",
+        "description": "The object detection function applies tags based on the objects or living things identified in the image. There is currently no formal relationship between the tagging taxonomy and the object detection taxonomy. At a conceptual level, the object detection function only finds objects and living things, while the tag function can also include contextual terms like 'indoor', which can't be localized with bounding boxes.",
+        "args": {
+            "image": "image_url or <GENERATED>-dep_id"
+        }
+    },
+    {
+        "task": "image-tagging",
+        "description": "Identify and tag visual features in an image, from a set of thousands of recognizable objects, living things, scenery, and actions",
+        "args": {
+            "image": "image_url or <GENERATED>-dep_id"
+        }
+    },
+    {
+        "task": "image-analysis",
+        "description": "Simutaniously perform image tagging, object detection, and image captioning",
+        "args": {
+            "image": "image_url or <GENERATED>-dep_id"
+        }
+    },
+    {
+        "task": "OCR",
+        "description": "Extract printed or handwritten text from images, such as posters, street signs and product labels, as well as from documents like articles, reports, forms, and invoices. The text is typically extracted as words, text lines, and paragraphs or text blocks, enabling access to digital version of the scanned text. ",
+        "args": {
+            "image": "image_url or <GENERATED>-dep_id"
+        }
+    },
+    {
+        "task": "form-recognizer",
+        "description": "Extract key text and structure elements from documents, such as receipts, invoices, and business cards. The extracted data can be used to populate fields in a database or to populate a form in a web application. ",
+        "args": {
+            "image": "image_url or <GENERATED>-dep_id"
+        }
+    }
+]
