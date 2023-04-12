@@ -34,7 +34,7 @@ TaskMap = {
     "object-detection": ObjectDetectionModel,
     "image-tagging": ImageTaggingModel,
     "image-analysis": ImageAnalysisModel,
-    "ocr": OCRModel,
+    "OCR": OCRModel,
     "form-recognizer": FormRecognizerModel,
 }
 
