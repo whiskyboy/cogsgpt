@@ -4,7 +4,7 @@ import time
 
 import azure.cognitiveservices.speech as speechsdk
 
-from cogsgpt.args import ArgsType
+from cogsgpt.utils import ArgsType, LanguageType
 from cogsgpt.cogsmodel import BaseModel
 
 
@@ -18,6 +18,11 @@ class Text2SpeechModel(BaseModel):
         super().__init__()
         self.speech_config = speechsdk.SpeechConfig(subscription=COGS_KEY, region=COGS_REGION)
 
+        self.supported_language = {
+            LanguageType.English.value: "en-US",
+            LanguageType.Chinese.value: "zh-CN",
+        }
+
     def _text2speech(self, text: str, language: str = "en-US") -> str:
         self.speech_config.speech_synthesis_language = language
         speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=self.speech_config, audio_config=None)
@@ -30,7 +35,8 @@ class Text2SpeechModel(BaseModel):
 
     def run(self, *args, **kwargs) -> str:
         text = kwargs[ArgsType.TEXT.value]
-        language = kwargs.get("language", "en-US")
+        language = kwargs.get("from_language", LanguageType.English.value)
+        language = self.supported_language[language]
         return self._text2speech(text, language)
     
 
@@ -38,6 +44,11 @@ class Speech2TextModel(BaseModel):
     def __init__(self) -> None:
         super().__init__()
         self.speech_config = speechsdk.SpeechConfig(subscription=COGS_KEY, region=COGS_REGION)
+
+        self.supported_language = {
+            LanguageType.English.value: "en-US",
+            LanguageType.Chinese.value: "zh-CN",
+        }
 
     def _recognize_continuous(self, speech_recognizer: speechsdk.SpeechRecognizer) -> str:
         done = False
@@ -76,5 +87,6 @@ class Speech2TextModel(BaseModel):
 
     def run(self, *args, **kwargs) -> str:
         audio_file = kwargs[ArgsType.AUDIO.value]
-        language = kwargs.get("language", "en-US")
+        language = kwargs.get("from_language", LanguageType.English.value)
+        language = self.supported_language[language]
         return self._speech2text(audio_file, language)

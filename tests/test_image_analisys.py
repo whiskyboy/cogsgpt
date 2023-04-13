@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, "./")
 
-from cogsgpt.args import ArgsType
+from cogsgpt.utils import ArgsType
 from cogsgpt.cogsmodel.cv import ImageAnalysisModel
 
 if __name__ == '__main__':

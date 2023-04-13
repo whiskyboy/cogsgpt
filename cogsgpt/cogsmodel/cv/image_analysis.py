@@ -3,9 +3,8 @@ from typing import Dict, List
 
 import azure.ai.vision as sdk
 
-from cogsgpt.args import ArgsType
 from cogsgpt.cogsmodel import BaseModel
-from cogsgpt.utils import FileSource, detect_file_source
+from cogsgpt.utils import ArgsType, FileSource, LanguageType, detect_file_source
 
 
 COGS_KEY = os.environ['COGS_KEY']
@@ -23,6 +22,10 @@ class ImageAnalysisModel(BaseModel):
             sdk.ImageAnalysisFeature.TAGS |
             sdk.ImageAnalysisFeature.TEXT
         )
+        self.supported_language = {
+            LanguageType.English.value: "en",
+            LanguageType.Chinese.value: "zh-Hans",
+        }
 
     def _parse_result(self, result: sdk.ImageAnalysisResult) -> Dict:
         result_dict = {}
@@ -55,7 +58,8 @@ class ImageAnalysisModel(BaseModel):
 
     def run(self, *args, **kwargs) -> str:
         image_file = kwargs[ArgsType.IMAGE.value]
-        language = kwargs.get("language", "en")
+        language = kwargs.get("from_language", LanguageType.English.value)
+        language = self.supported_language[language]
         return str(self._analyze_image(image_file, language))
 
 

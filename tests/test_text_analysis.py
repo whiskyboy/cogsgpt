@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, "./")
 
-from cogsgpt.args import ArgsType
+from cogsgpt.utils import ArgsType
 from cogsgpt.cogsmodel.nlp import *
 
 if __name__ == '__main__':

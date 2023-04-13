@@ -3,7 +3,7 @@ import uuid
 
 import requests
 
-from cogsgpt.args import ArgsType
+from cogsgpt.utils import ArgsType, LanguageType
 from cogsgpt.cogsmodel import BaseModel
 
 
@@ -24,6 +24,11 @@ class TextTranslationModel(BaseModel):
             'X-ClientTraceId': str(uuid.uuid4())
         }
 
+        self.supported_language = {
+            LanguageType.English.value: "en",
+            LanguageType.Chinese.value: "zh-Hans",
+        }
+
     def _translate(self, text: str, from_language: str, to_language: str) -> str:
         body = [{
             'text': text
@@ -40,6 +45,6 @@ class TextTranslationModel(BaseModel):
 
     def run(self, *args, **kwargs) -> str:
         text = kwargs[ArgsType.TEXT.value]
-        from_language = kwargs["from_language"]
-        to_language = kwargs["to_language"]
+        from_language = self.supported_language[kwargs["from_language"]]
+        to_language = self.supported_language[kwargs["to_language"]]
         return self._translate(text, from_language, to_language)

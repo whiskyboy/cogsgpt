@@ -5,7 +5,7 @@ from typing import List
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 
-from cogsgpt.args import ArgsType
+from cogsgpt.utils import ArgsType, LanguageType
 from cogsgpt.cogsmodel import BaseModel
 
 
@@ -21,6 +21,11 @@ class BaseAnalysisModel(BaseModel, abc.ABC):
             endpoint=COGS_ENDPOINT,
             credential=ta_credential
         )
+
+        self.supported_language = {
+            LanguageType.English.value: "en-us",
+            LanguageType.Chinese.value: "zh-hans",
+        }
     
     @abc.abstractmethod
     def _analyze(self, text: str, language: str = "en") -> List:
@@ -28,7 +33,8 @@ class BaseAnalysisModel(BaseModel, abc.ABC):
 
     def run(self, *args, **kwargs) -> str:
         text = kwargs[ArgsType.TEXT.value]
-        language = kwargs.get("language", "en")
+        language = kwargs.get("from_language", LanguageType.English.value)
+        language = self.supported_language[language]
         return str(self._analyze(text, language))
 
 

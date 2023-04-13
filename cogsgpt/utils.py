@@ -4,9 +4,21 @@ from typing import Optional
 from urllib.parse import urlparse
 
 
+class ArgsType(Enum):
+    TEXT = "text"
+    IMAGE = "image"
+    AUDIO = "audio"
+
+
+class LanguageType(Enum):
+    Chinese = "chinese"
+    English = "english"
+
+
 class FileSource(Enum):
     LOCAL = "local"
     REMOTE = "remote"
+
 
 def detect_file_source(file_path: str) -> Optional[str]:
     # Check if the input is a local file path

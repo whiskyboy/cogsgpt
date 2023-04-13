@@ -4,7 +4,7 @@ import os
 from azure.ai.textanalytics import TextAnalyticsClient, ExtractSummaryAction, AbstractSummaryAction
 from azure.core.credentials import AzureKeyCredential
 
-from cogsgpt.args import ArgsType
+from cogsgpt.utils import ArgsType, LanguageType
 from cogsgpt.cogsmodel import BaseModel
 
 
@@ -21,13 +21,19 @@ class BaseSummarizeModel(BaseModel, abc.ABC):
             credential=ta_credential
         )
 
+        self.supported_language = {
+            LanguageType.English.value: "en-us",
+            LanguageType.Chinese.value: "zh-hans",
+        }
+
     @abc.abstractmethod
     def _summarize(self, text: str, language: str = "en") -> str:
         pass
 
     def run(self, *args, **kwargs) -> str:
         text = kwargs[ArgsType.TEXT.value]
-        language = kwargs.get("language", "en")
+        language = kwargs.get("from_language", LanguageType.English.value)
+        language = self.supported_language[language]
         return self._summarize(text, language)
 
 

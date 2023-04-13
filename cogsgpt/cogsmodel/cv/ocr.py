@@ -5,9 +5,8 @@ import azure.ai.vision as sdk
 from azure.ai.formrecognizer import DocumentAnalysisClient
 from azure.core.credentials import AzureKeyCredential
 
-from cogsgpt.args import ArgsType
 from cogsgpt.cogsmodel import BaseModel
-from cogsgpt.utils import FileSource, detect_file_source
+from cogsgpt.utils import ArgsType, FileSource, LanguageType, detect_file_source
 
 
 COGS_KEY = os.environ['COGS_KEY']
@@ -22,6 +21,11 @@ class FormRecognizerModel(BaseModel):
             credential=AzureKeyCredential(COGS_KEY)
         )
         self.model_id = "prebuilt-read"
+
+        self.supported_language = {
+            LanguageType.English.value: "en",
+            LanguageType.Chinese.value: "zh-Hans",
+        }
 
     def _parse_result(self, analyze_result: Type) -> Dict:
         return {
@@ -47,5 +51,6 @@ class FormRecognizerModel(BaseModel):
 
     def run(self, *args, **kwargs) -> str:
         document_file = kwargs[ArgsType.IMAGE.value]
-        language = kwargs.get("language", "en")
+        language = kwargs.get("from_language", LanguageType.English.value)
+        language = self.supported_language[language]
         return str(self._analyze_document(document_file, language))
