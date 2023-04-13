@@ -73,7 +73,7 @@ class PIIModel(BaseAnalysisModel):
         } for entity in response[0].entities]
 
 
-class SentimentClassiferModel(BaseAnalysisModel):
+class SentimentAnalysisModel(BaseAnalysisModel):
     def _analyze(self, text: str, language: str = "en") -> List:
         response = self.text_analytics_client.analyze_sentiment(documents=[text], language=language)
         return [{

@@ -38,7 +38,7 @@ if __name__ == '__main__':
     print(model.run(**data))
 
     # Test SentimentClassiferModel
-    model = SentimentClassiferModel()
+    model = SentimentAnalysisModel()
     data = {
         ArgsType.TEXT.value: "The food and service were unacceptable. The concierge was nice, however."
     }
