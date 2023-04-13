@@ -20,7 +20,8 @@ class ImageAnalysisModel(BaseModel):
         self.analysis_options.features = (
             sdk.ImageAnalysisFeature.CAPTION |
             sdk.ImageAnalysisFeature.OBJECTS |
-            sdk.ImageAnalysisFeature.TAGS
+            sdk.ImageAnalysisFeature.TAGS |
+            sdk.ImageAnalysisFeature.TEXT
         )
 
     def _parse_result(self, result: sdk.ImageAnalysisResult) -> Dict:
@@ -32,6 +33,8 @@ class ImageAnalysisModel(BaseModel):
                 result_dict["objects"] = [obj.name for obj in result.objects]
             if result.tags is not None:
                 result_dict["tags"] = [tag.name for tag in result.tags]
+            if result.text is not None:
+                result_dict["text"] = [line.content for line in result.text.lines]
         return result_dict
 
     def _analyze_image(self, image_file: str, language: str = "en") -> Dict:
@@ -84,3 +87,13 @@ class ImageTaggingModel(ImageAnalysisModel):
     def _analyze_image(self, image_file: str, language: str = "en") -> List:
         result = super()._analyze_image(image_file, language)
         return result.get("tags", [])
+
+
+class ImageTextModel(ImageAnalysisModel):
+    def __init__(self) -> None:
+        super().__init__()
+        self.analysis_options.features = sdk.ImageAnalysisFeature.TEXT
+
+    def _analyze_image(self, image_file: str, language: str = "en") -> List:
+        result = super()._analyze_image(image_file, language)
+        return result.get("text", [])
