@@ -1,58 +1,62 @@
 [
     {
         "task": "image-caption",
-        "description": "Generate a caption of an image in human-readable language, using complete sentences.",
-        "args": {
-            "image": "image_url or <GENERATED>-dep_id"
-        }
+        "description": "Image captioning is the task of generating a textual description of an image. It should be called when there is a need to provide a textual description of an image."
     },
     {
         "task": "object-detection",
-        "description": "The object detection function applies tags based on the objects or living things identified in the image. There is currently no formal relationship between the tagging taxonomy and the object detection taxonomy. At a conceptual level, the object detection function only finds objects and living things, while the tag function can also include contextual terms like 'indoor', which can't be localized with bounding boxes.",
-        "args": {
-            "image": "image_url or <GENERATED>-dep_id"
-        }
+        "description": "Object detection is a computer vision task that involves identifying and locating objects within an image or video. It should be called when the task involves identifying and locating multiple objects within an image or video."
     },
     {
         "task": "image-tagging",
-        "description": "Identify and tag visual features in an image, from a set of thousands of recognizable objects, living things, scenery, and actions",
-        "args": {
-            "image": "image_url or <GENERATED>-dep_id"
-        }
-    },
-    {
-        "task": "image-analysis",
-        "description": "Simutaniously perform image tagging, object detection, and image captioning",
-        "args": {
-            "image": "image_url or <GENERATED>-dep_id"
-        }
+        "description": "Image-tagging involves assigning descriptive labels or keywords to an image, which can then be used for organization, search, or analysis. We should call for image-tagging when we need to categorize and label a large number of images to facilitate their management and retrieval."
     },
     {
         "task": "OCR",
-        "description": "Extract printed or handwritten text from images, such as posters, street signs and product labels, as well as from documents like articles, reports, forms, and invoices. The text is typically extracted as words, text lines, and paragraphs or text blocks, enabling access to digital version of the scanned text. ",
-        "args": {
-            "image": "image_url or <GENERATED>-dep_id"
-        }
+        "description": "OCR (Optical Character Recognition) is a technology that enables the digitization of printed or handwritten text from scanned images, allowing for the extraction of text information and conversion into machine-readable formats. We should call for OCR when we need to convert physical documents into digital format, or when we need to extract specific data from documents for further processing or analysis."
     },
     {
         "task": "form-recognizer",
-        "description": "Extract key text and structure elements from documents, such as receipts, invoices, and business cards. The extracted data can be used to populate fields in a database or to populate a form in a web application. ",
-        "args": {
-            "image": "image_url or <GENERATED>-dep_id"
-        }
+        "description": "Form Recognizer is a Microsoft Azure service that can analyze and extract information from structured documents such as receipts, invoices, and forms. It uses machine learning models to recognize and extract key-value pairs, tables, and other structured data from these documents. This task should be called when you need to automate the processing of large volumes of structured documents to extract and organize information efficiently."
     },
     {
         "task": "text2speech",
-        "description": "Convert input text into humanlike synthesized speech",
-        "args": {
-            "text": "text or <GENERATED>-dep_id"
-        }
+        "description": "Text-to-speech (TTS) is a technology that converts written text into spoken audio. We call for TTS when we need to convert written text into audio output, such as for accessibility purposes, language translation, or providing audio content for visually impaired individuals."
     },
     {
         "task": "speech2text",
-        "description": "Transcribe audio into text",
-        "args": {
-            "audio": "audio_url or <GENERATED>-dep_id"
-        }
+        "description": "Speech-to-text is a technology that converts spoken words into text format. It can be used to transcribe audio recordings, live speeches, and phone calls. This task is useful when you need to create written records of verbal communication or make audio content accessible to hearing-impaired individuals."
+    },
+    {
+        "task": "key-phrase",
+        "description": "Keyphrase extraction involves identifying and extracting a set of relevant and meaningful words or phrases from a given text that can summarize its content or provide a quick overview. This task is useful for summarization, information retrieval, topic modeling, and other natural language processing applications. It should be called when we want to identify the most important concepts or themes in a document or a corpus of documents."
+    },
+    {
+        "task": "entity-linking",
+        "description": "Entity linking is the task of identifying named entities in text and linking them to their corresponding entity in a knowledge base or database. It is typically used in natural language processing applications, such as information retrieval, question answering, and text mining, when the task requires accurate identification and disambiguation of named entities."
+    },
+    {
+        "task": "entity-recognition",
+        "description": "Entity recognition is a natural language processing task that involves identifying and categorizing named entities in text such as people, organizations, locations, and numerical expressions. It can be used to extract structured information from unstructured text data and is useful for various applications such as information retrieval, chatbots, and sentiment analysis. It should be called when there is a need to extract specific information from text data and automate the process of identifying entities."
+    },
+    {
+        "task": "sentiment-analysis",
+        "description": "Sentiment analysis is a natural language processing technique that analyzes and determines the emotional tone in a piece of text. It can be used to identify the sentiment as positive, negative, or neutral, and can be called whenever there is a need to understand the emotional tone or opinions expressed in textual data."
+    },
+    {
+        "task": "extract-summarize",
+        "description": "Extract-summarize is a task that involves automatically extracting the most important information from a given document or set of documents and presenting it in a concise and coherent summary. This task should be called when we need to quickly and efficiently extract key insights from a large amount of text data, such as news articles, research papers, or business reports."
+    },
+    {
+        "task": "abstract-summarize",
+        "description": "Abstract-summarize is a natural language processing task that involves generating a shorter, condensed version of a longer piece of text while preserving its most important information. It is typically used when the original text is too long or complex to be easily understood, and a summary is needed for quick comprehension or decision-making."
+    },
+    {
+        "task": "personally-identifiable-information",
+        "description": "Personally-identifiable-information (PII) can uniquely identify an individual and be used for malicious purposes such as identity theft or fraud. PII should be protected and called into action when handling sensitive information to prevent unauthorized access or disclosure."
+    },
+    {
+        "task": "text-translation",
+        "description": "Text-translation is the process of translating text from one language to another. We should call for this task when we need to communicate with someone who speaks a different language or when we need to understand content in a different language."
     }
 ]

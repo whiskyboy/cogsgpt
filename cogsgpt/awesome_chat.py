@@ -33,11 +33,18 @@ TaskMap = {
     "image-caption": ImageCaptionModel,
     "object-detection": ObjectDetectionModel,
     "image-tagging": ImageTaggingModel,
-    "image-analysis": ImageAnalysisModel,
     "OCR": ImageTextModel,
     "form-recognizer": FormRecognizerModel,
     "text2speech": Text2SpeechModel,
     "speech2text": Speech2TextModel,
+    "key-phrase": KeyPhraseModel,
+    "entity-linking": EntityLinkingModel,
+    "entity-recognition": EntityRecognitionModel,
+    "sentiment-analysis": SentimentAnalysisModel,
+    "extract-summarize": ExtractSummarizeModel,
+    "abstract-summarize": AbstractSummarizeModel,
+    "personally-identifiable-information": PIIModel,
+    "text-translation": TextTranslationModel,
 }
 
 
