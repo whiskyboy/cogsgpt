@@ -8,3 +8,5 @@ from .text_summarize import ExtractSummarizeModel
 from .text_summarize import AbstractSummarizeModel
 
 from .text_translation import TextTranslationModel
+
+from .text_generation import TextGenerationModel

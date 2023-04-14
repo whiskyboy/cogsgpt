@@ -1,6 +1,5 @@
 import json
 import logging
-import os
 from typing import Dict, List
 
 from langchain import PromptTemplate
@@ -12,13 +11,10 @@ from langchain.prompts.chat import (
 )
 from langchain.schema import BaseMessage
 from langchain.memory import ConversationBufferMemory
-from langchain.chat_models import AzureChatOpenAI
 
-from cogsgpt import awesome_prompts, ArgsType, LanguageType
+from cogsgpt import awesome_prompts, ArgsType, LanguageType, llm_manager
 from cogsgpt.cogsmodel import *
 
-OPENAI_MODEL_NAME = os.environ["OPENAI_MODEL_NAME"]
-OPENAI_MODEL_VERSION = os.environ["OPENAI_MODEL_VERSION"]
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -45,6 +41,7 @@ TaskMap = {
     "abstract-summarize": AbstractSummarizeModel,
     "personally-identifiable-information": PIIModel,
     "text-translation": TextTranslationModel,
+    "text-generation": TextGenerationModel,
 }
 
 
@@ -59,10 +56,7 @@ class CogsGPT():
 
         self.memory = ConversationBufferMemory(memory_key='history')
 
-        self.chat_model = AzureChatOpenAI(
-            deployment_name=OPENAI_MODEL_NAME,
-            openai_api_version=OPENAI_MODEL_VERSION,
-        )
+        self.chat_model = llm_manager.LLM
 
     def _save_context(self, human_input: str, ai_response: str) -> None:
         self.memory.chat_memory.add_user_message(human_input)
@@ -166,7 +160,7 @@ class CogsGPT():
                 task_args[arg_name] = task_list[dep_id].get("result", "")
         return task_args
 
-    def _execute_tasks(self, task_list: List[Dict]) -> List[Dict]:
+    def _execute_tasks(self, human_input: str, task_list: List[Dict]) -> List[Dict]:
         for task in task_list:
             try:
                 task_name = task["task"]
@@ -175,6 +169,8 @@ class CogsGPT():
                 else:
                     task_model = TaskMap[task_name]()
                     task["args"] = self._collect_deps_results(task["args"], task_list)
+                    if task_name == "text-generation":
+                        task["args"]["human_input"] = human_input # add human input arg to text-generation task
                     logger.info(f"Task {task_name} args: {task['args']}")
                     task["result"] = task_model.run(**task["args"])
                     logger.info(f"Task {task_name} result: {task['result']}")
@@ -194,7 +190,7 @@ class CogsGPT():
         task_list = self._parse_tasks(human_input)
 
         # 2. execute tasks
-        task_result_list = self._execute_tasks(task_list)
+        task_result_list = self._execute_tasks(human_input, task_list)
 
         # 3. generate response
         response = self._generate_response(human_input, task_result_list)

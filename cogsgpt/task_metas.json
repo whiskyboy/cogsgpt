@@ -58,5 +58,9 @@
     {
         "task": "text-translation",
         "description": "Text-translation is the process of translating text from one language to another. We should call for this task when we need to communicate with someone who speaks a different language or when we need to understand content in a different language. It accepts 'text', 'from_language', and 'to_language' as arguments."
+    },
+    {
+        "task": "text-generation",
+        "description": "Text-generation is the task of generating text from a given input. It should be called when there is a need to generate text from a given input. It accepts 'text' as a required argument and 'from_language'/'to_language' as optional arguments. "
     }
 ]
