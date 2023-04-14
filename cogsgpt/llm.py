@@ -26,7 +26,7 @@ class LLMManager():
                 openai_api_key=OPENAI_API_KEY,
             )
         else:
-            raise ValueError("OPENAI_API_TYPE must be either 'azure' or 'openai'.")
+            raise ValueError(f"OPENAI_API_TYPE must be either 'azure' or 'openai', but got {OPENAI_API_TYPE}")
 
     @property
     def LLM(self) -> ChatOpenAI:

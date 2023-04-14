@@ -1,6 +1,6 @@
 import json
-import logging
 from typing import Dict, List
+import colorlog
 
 from langchain import PromptTemplate
 from langchain.prompts.chat import (
@@ -16,12 +16,21 @@ from cogsgpt import awesome_prompts, ArgsType, LanguageType, llm_manager
 from cogsgpt.cogsmodel import *
 
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+handler = colorlog.StreamHandler()
+handler.setFormatter(colorlog.ColoredFormatter(
+	"%(log_color)s%(levelname)-8s %(message)s",
+	datefmt=None,
+	reset=True,
+	log_colors={
+		'DEBUG':    'cyan',
+		'INFO':     'green',
+		'WARNING':  'yellow',
+		'ERROR':    'red',
+		'CRITICAL': 'red,bg_white',
+	}))
 
-handler = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-handler.setFormatter(formatter)
+logger = colorlog.getLogger(__name__)
+logger.setLevel(colorlog.INFO)
 logger.addHandler(handler)
 
 
@@ -148,9 +157,9 @@ class CogsGPT():
 
     def _parse_tasks(self, human_input: str) -> List[Dict]:
         messages = self._format_parse_task_prompt(human_input)
-        logger.info(f"Parse task prompt: {messages}")
+        logger.debug(f"Parse task prompt: {messages}")
         response = self.chat_model(messages).content
-        logger.info(f"Parse task response: {response}")
+        logger.info(f"Parse user input into tasks: {response}")
         return json.loads(response)
 
     def _collect_deps_results(self, task_args: Dict, task_list: List[Dict]) -> Dict:
@@ -161,38 +170,42 @@ class CogsGPT():
         return task_args
 
     def _execute_tasks(self, human_input: str, task_list: List[Dict]) -> List[Dict]:
-        for task in task_list:
+        for i, task in enumerate(task_list):
             try:
                 task_name = task["task"]
+                logger.info(f"Executing task{i}: {task_name}")
                 if task_name not in TaskMap:
-                    logger.warning(f"Task {task_name} not supported")
+                    logger.warning(f"Task{i} {task_name} not supported")
                 else:
                     task_model = TaskMap[task_name]()
                     task["args"] = self._collect_deps_results(task["args"], task_list)
                     if task_name == "text-generation": # We use ChatGPT to do this task
                         task["args"]["human_input"] = human_input # add human input arg to text-generation task
-                    logger.info(f"Task {task_name} args: {task['args']}")
+                    logger.debug(f"Task{i} {task_name} args: {task['args']}")
                     task["result"] = task_model.run(**task["args"])
-                    logger.info(f"Task {task_name} result: {task['result']}")
+                    logger.info(f"Task{i} {task_name} done: {task['result']}")
             except Exception as e:
-                logger.error(f"Task {task_name} execute failed: {e}")
+                logger.error(f"Task{i} {task_name} failed: {e}")
         return task_list
 
     def _generate_response(self, human_input: str, task_result_list: List[Dict]) -> str:
         messages = self._format_generate_response_prompt(human_input, task_result_list)
-        logger.info(f"Generate response prompt: {messages}")
+        logger.debug(f"Generate response prompt: {messages}")
         response = self.chat_model(messages).content
-        logger.info(f"Generate response response: {response}")
+        logger.info(f"final response: {response}")
         return response
 
     def chat(self, human_input: str) -> str:
         # 1. parse tasks
+        logger.info("Parsing user input...")
         task_list = self._parse_tasks(human_input)
 
         # 2. execute tasks
+        logger.info("Executing tasks...")
         task_result_list = self._execute_tasks(human_input, task_list)
 
         # 3. generate response
+        logger.info("Generating final response...")
         response = self._generate_response(human_input, task_result_list)
 
         # 4. save human_input/response into memory

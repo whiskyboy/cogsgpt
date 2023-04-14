@@ -4,3 +4,4 @@ azure-ai-textanalytics
 azure-cognitiveservices-speech
 langchain
 openai
+colorlog
