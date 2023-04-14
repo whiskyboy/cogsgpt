@@ -169,7 +169,7 @@ class CogsGPT():
                 else:
                     task_model = TaskMap[task_name]()
                     task["args"] = self._collect_deps_results(task["args"], task_list)
-                    if task_name == "text-generation":
+                    if task_name == "text-generation": # We use ChatGPT to do this task
                         task["args"]["human_input"] = human_input # add human input arg to text-generation task
                     logger.info(f"Task {task_name} args: {task['args']}")
                     task["result"] = task_model.run(**task["args"])
