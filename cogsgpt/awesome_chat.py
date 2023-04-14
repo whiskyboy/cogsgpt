@@ -143,9 +143,8 @@ class CogsGPT():
         return self.parse_task_prompt.format_prompt(
             history=history,
             input=human_input,
-            args_type_list=[t.value for t in ArgsType] + ["from_language", "to_language"],
-            task_list=[t['task'] for t in self.task_metas],
             task_metas=self.task_metas,
+            args_type_list=[t.value for t in ArgsType] + ["from_language", "to_language"],
             supported_language_list=[l.value for l in LanguageType]
         ).to_messages()
 
