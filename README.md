@@ -2,7 +2,9 @@
 A multi-modal LLM integrated ChatGPT with Azure Cognitive Service, inspired by HuggingGPT.
 
 ## Overview
-This project is inspired by [HuggingGPT](https://github.com/microsoft/JARVIS). As the name CogsGPT suggests, it utilizes the ChatGPT model as the language center and integrates with Azure Cognitive Services to achieve multimodal capabilities to some extent. Typical user cases include:
+This project is inspired by [HuggingGPT](https://github.com/microsoft/JARVIS). As the name CogsGPT suggests, it utilizes the ChatGPT model as the language center and integrates with Azure Cognitive Services to achieve multimodal capabilities to some extent.
+
+Typical user cases include:
 
 - Information extraction: Extract the main information from a doc or an image.
 - Image translation: Translate the text in an image to another language.
@@ -12,6 +14,7 @@ This project is inspired by [HuggingGPT](https://github.com/microsoft/JARVIS). A
 There are more user cases waiting for your exploration!
 
 Here is a demo of creating a poem based on an image and converting it into speech in another language.
+
 ![demo](./docs/demo.gif)
 
 ## Getting Started
