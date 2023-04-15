@@ -65,7 +65,7 @@ You can use CogsGPT in your own application to process image or audio inputs wit
 from cogsgpt import CogsGPT
 
 agent = CogsGPT()
-agent.chat("What's the content in a.jpg ?")
+agent.chat("What's the content in a.jpg?")
 ```
 
 Or you can experience an interactive console application with the following command:
