@@ -1,2 +1,3 @@
 __pycache__
-*.ipynb
+build
+*.egg-info

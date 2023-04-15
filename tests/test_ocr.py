@@ -8,6 +8,6 @@ if __name__ == '__main__':
     # Test form recognizer model
     form_recog_model = FormRecognizerModel()
     data = {
-        ArgsType.IMAGE.value: "./samples/read.png"
+        ArgsType.IMAGE.value: "./tests/examples/read.png"
     }
     print(form_recog_model.run(**data))

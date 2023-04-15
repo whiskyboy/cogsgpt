@@ -8,6 +8,6 @@ if __name__ == '__main__':
     # Test Image Analysis model
     image_analysis_model = ImageAnalysisModel()
     data = {
-        ArgsType.IMAGE.value: "./samples/presentation.png"
+        ArgsType.IMAGE.value: "./tests/examples/presentation.png"
     }
     print(image_analysis_model.run(**data))

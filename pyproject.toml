@@ -1,0 +1,33 @@
+# pyproject.toml
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cogsgpt"
+version = "0.0.1"
+description = "A multi-modal LLM integrated ChatGPT with Azure Cognitive Service"
+readme = "README.md"
+authors = [{ name = "weitian", email = "weitian.bnu@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["chatgpt", "cognitive service", "llm"]
+dependencies = [
+    "azure-ai-vision",
+    "azure-ai-formrecognizer",
+    "azure-ai-textanalytics == 5.3.0b1",
+    "azure-cognitiveservices-speech",
+    "langchain",
+    "openai",
+    "jinja2",
+    "colorlog",
+]
+requires-python = ">=3.8"
+
+[project.urls]
+Homepage = "https://github.com/whiskyboy/cogsgpt"

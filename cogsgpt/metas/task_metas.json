@@ -1,0 +1,82 @@
+[
+    {
+        "task": "image-caption",
+        "priority": "high",
+        "description": "Image captioning is the task of generating a textual description of an image. It should be called when there is a need to provide a textual description of an image. It accepts 'image' and 'from_language' as arguments."
+    },
+    {
+        "task": "object-detection",
+        "priority": "medium",
+        "description": "Object detection is a computer vision task that involves identifying and locating objects within an image or video. It should be called when the task involves identifying and locating multiple objects within an image or video. It accepts 'image' and 'from_language' as arguments."
+    },
+    {
+        "task": "image-tagging",
+        "priority": "medium",
+        "description": "Image-tagging involves assigning descriptive labels or keywords to an image, which can then be used for organization, search, or analysis. We should call for image-tagging when we need to categorize and label a large number of images to facilitate their management and retrieval. It accepts 'image' and 'from_language' as arguments."
+    },
+    {
+        "task": "OCR",
+        "priority": "high",
+        "description": "OCR (Optical Character Recognition) is a technology that enables the digitization of printed or handwritten text from scanned images, allowing for the extraction of text information and conversion into machine-readable formats. We should call for OCR when we need to convert physical documents into digital format, or when we need to extract specific data from documents for further processing or analysis. It accepts 'image' and 'from_language' as arguments."
+    },
+    {
+        "task": "form-recognizer",
+        "priority": "high",
+        "description": "Form Recognizer is a Microsoft Azure service that can analyze and extract information from structured documents such as receipts, invoices, and forms. This task should be called when you need to extract and organize information from PDF/Work/Excel documents. It accepts 'image' and 'from_language' as arguments."
+    },
+    {
+        "task": "text2speech",
+        "priority": "high",
+        "description": "Text-to-speech (TTS) is a technology that converts written text into spoken audio. We call for TTS when we need to convert written text into audio output, such as for accessibility purposes, language translation, or providing audio content for visually impaired individuals. It accepts 'text' and 'from_language' as arguments."
+    },
+    {
+        "task": "speech2text",
+        "priority": "medium",
+        "description": "Speech-to-text is a technology that converts spoken words into text format. It can be used to transcribe audio recordings, live speeches, and phone calls. This task is useful when you need to create written records of verbal communication or make audio content accessible to hearing-impaired individuals. It accepts 'audio' and 'from_language' as arguments."
+    },
+    {
+        "task": "key-phrase",
+        "priority": "low",
+        "description": "Keyphrase extraction involves identifying and extracting a set of relevant and meaningful words or phrases from a given text that can summarize its content or provide a quick overview. This task is useful for summarization, information retrieval, topic modeling, and other natural language processing applications. It should be called when we want to identify the most important concepts or themes in a document or a corpus of documents. It accepts 'text' and 'from_language' as arguments."
+    },
+    {
+        "task": "entity-linking",
+        "priority": "low",
+        "description": "Entity linking is the task of identifying named entities in text and linking them to their corresponding entity in a knowledge base or database. It is typically used in natural language processing applications, such as information retrieval, question answering, and text mining, when the task requires accurate identification and disambiguation of named entities. It accepts 'text' and 'from_language' as arguments."
+    },
+    {
+        "task": "entity-recognition",
+        "priority": "low",
+        "description": "Entity recognition is a natural language processing task that involves identifying and categorizing named entities in text such as people, organizations, locations, and numerical expressions. It can be used to extract structured information from unstructured text data and is useful for various applications such as information retrieval, chatbots, and sentiment analysis. It should be called when there is a need to extract specific information from text data and automate the process of identifying entities. It accepts 'text' and 'from_language' as arguments."
+    },
+    {
+        "task": "sentiment-analysis",
+        "priority": "low",
+        "description": "Sentiment analysis is a natural language processing technique that analyzes and determines the emotional tone in a piece of text. It can be used to identify the sentiment as positive, negative, or neutral, and can be called whenever there is a need to understand the emotional tone or opinions expressed in textual data. It accepts 'text' and 'from_language' as arguments."
+    },
+    {
+        "task": "extract-summarize",
+        "priority": "medium",
+        "description": "Extract-summarize is a task that involves automatically extracting the most important information from a given document or set of documents and presenting it in a concise and coherent summary. This task should be called when we need to quickly and efficiently extract key insights from a large amount of text data, such as news articles, research papers, or business reports. It accepts 'text' and 'from_language' as arguments."
+    },
+    {
+        "task": "abstract-summarize",
+        "priority": "medium",
+        "description": "Abstract-summarize is a natural language processing task that involves generating a shorter, condensed version of a longer piece of text while preserving its most important information. It is typically used when the original text is too long or complex to be easily understood, and a summary is needed for quick comprehension or decision-making. It accepts 'text' and 'from_language' as arguments."
+    },
+    {
+        "task": "personally-identifiable-information",
+        "priority": "low",
+        "description": "Personally-identifiable-information (PII) can uniquely identify an individual and be used for malicious purposes such as identity theft or fraud. PII should be protected and called into action when handling sensitive information to prevent unauthorized access or disclosure. It accepts 'text' and 'from_language' as arguments."
+    },
+    {
+        "task": "text-translation",
+        "priority": "medium",
+        "description": "Text-translation is the process of translating text from one language to another. We should call for this task when we need to communicate with someone who speaks a different language or when we need to understand content in a different language. It accepts 'text', 'from_language', and 'to_language' as arguments."
+    },
+    {
+        "task": "text-generation",
+        "priority": "high",
+        "description": "Text-generation is the task of generating text from a given input. It should be called when there is a need to generate text from a given input. It accepts 'text' as a required argument and 'from_language'/'to_language' as optional arguments. "
+    }
+]

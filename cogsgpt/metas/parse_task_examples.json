@@ -1,0 +1,55 @@
+[
+    {
+        "role": "user",
+        "content": "Write a poem in Chinese for image a.png and read it for me"
+    },
+    {
+        "role": "assistant",
+        "content": "[{\"task\": \"image-caption\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"a.png\", \"from_language\": \"english\"}}, {\"task\": \"text-generation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\"}}, {\"task\": \"text2speech\", \"id\": 2, \"dep\": [1], \"args\": {\"text\": \"<GENERATED>-1\", \"from_language\": \"chinese\"}}]"
+    },
+
+    {
+        "role":"user",
+        "content":"How many sheep in the picture b.jpg?"
+    },
+    {
+        "role":"assistant",
+        "content":"[{\"task\": \"object-detection\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"b.jpg\", \"from_language\": \"english\"}}]"
+    },
+
+    {
+        "role":"user",
+        "content":"What's the total tax paid in the invoice.png?"
+    },
+    {
+        "role":"assistant",
+        "content":"[{\"task\": \"form-recognizer\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"invoice.png\", \"from_language\": \"english\"}}]"
+    },
+
+    {
+        "role":"user",
+        "content":"Summarize the text in poster.pdf which is written in Chinese and speak it in English for me"
+    },
+    {
+        "role":"assistant",
+        "content":"[{\"task\": \"form-recognizer\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"poster.pdf\", \"from_language\": \"chinese\"}}, {\"task\": \"extract-summarize\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\", \"from_language\": \"chinese\"}}, {\"task\": \"text-translation\", \"id\": 2, \"dep\": [1], \"args\": {\"text\": \"<GENERATED>-1\", \"from_language\": \"chinese\", \"to_language\": \"english\"}}, {\"task\": \"text2speech\", \"id\": 3, \"dep\": [2], \"args\": {\"text\": \"<GENERATED>-2\", \"from_language\": \"english\"}}]"
+    },
+
+    {
+        "role":"user",
+        "content":"图片./a.jpg和图片./b.jpg有哪些相同的元素？"
+    },
+    {
+        "role":"assistant",
+        "content":"[{\"task\": \"object-detection\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"./a.jpg\", \"from_language\": \"chinese\"}}, {\"task\": \"object-detection\", \"id\": 1, \"dep\": [-1], \"args\": {\"image\": \"./b.jpg\", \"from_language\": \"chinese\"}}]"
+    },
+
+    {
+        "role":"user",
+        "content":"Translate the Chinese words in e.jpg to English"
+    },
+    {
+        "role":"assistant",
+        "content":"[{\"task\": \"OCR\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"./e.jpg\", \"from_language\": \"chinese\"}}, {\"task\": \"text-translation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\", \"from_language\": \"chinese\", \"to_language\": \"english\"}}]"
+    }
+]

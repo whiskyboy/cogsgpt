@@ -1,6 +1,7 @@
 import json
 from typing import Dict, List
 import colorlog
+import pkg_resources
 
 from langchain import PromptTemplate
 from langchain.prompts.chat import (
@@ -56,9 +57,9 @@ TaskMap = {
 
 class CogsGPT():
     def __init__(self) -> None:
-        self.task_metas = json.load(open("./cogsgpt/task_metas.json", "r"))
-        self.parse_task_examples = json.load(open("./cogsgpt/parse_task_examples.json", 'r'))
-        self.generate_response_presteps = json.load(open("./cogsgpt/generate_response_presteps.json", 'r'))
+        self.task_metas = json.load(open(pkg_resources.resource_filename('cogsgpt', 'metas/task_metas.json'), "r"))
+        self.parse_task_examples = json.load(open(pkg_resources.resource_filename('cogsgpt', 'metas/parse_task_examples.json'), 'r'))
+        self.generate_response_presteps = json.load(open(pkg_resources.resource_filename('cogsgpt', 'metas/generate_response_presteps.json'), 'r'))
 
         self.parse_task_prompt = self._create_parse_task_prompt()
         self.generate_response_prompt = self._create_generate_response_prompt()
