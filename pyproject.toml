@@ -31,6 +31,3 @@ requires-python = ">=3.8"
 
 [project.urls]
 Homepage = "https://github.com/whiskyboy/cogsgpt"
-
-[tool.setuptools]
-package-dir = {"" = "cogsgpt"}
