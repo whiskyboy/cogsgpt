@@ -46,29 +46,39 @@ class Client:
 
     def add_text(self, chatbot, text_input, image_input=None, audio_input=None):
         if text_input:
-            self._message = text_input
+            self._text_input = text_input
             chatbot += [[text_input, None]]
+        else:
+            self._text_input = ""
+
         if image_input:
             # image_path = self._move_file(image_input)
-            self._message += f"\nimage path:({image_input})"
+            self._image_input = image_input
             chatbot += [[(image_input,), None]]
+        else:
+            self._image_input = None
+
         if audio_input:
             # audio_path = self._move_file(audio_input)
-            self._message += f"\naudio_path: ({audio_input})"
+            self._audio_input = audio_input
             chatbot += [[(audio_input,), None]]
+        else:
+            self._audio_input = None
+
+        self._inputs = f"{self._text_input} [image]({self._image_input}) [audio]({self._audio_input})"
 
         return chatbot
 
     def parse_task(self):
-        self._task_list = self._client._parse_tasks(self._message)
+        self._task_list = self._client._parse_tasks(self._inputs)
         return self._task_list
 
     def execute_task(self):
-        self._task_result_list = self._client._execute_tasks(self._message, self._task_list)
+        self._task_result_list = self._client._execute_tasks(self._text_input, self._task_list)
         return self._task_result_list
 
     def generate_response(self, chatbot):
-        self._response = self._client._generate_response(self._message, self._task_result_list)
+        self._response = self._client._generate_response(self._text_input, self._task_result_list)
         chatbot += [[None, self._response]]
 
         image_urls, audio_urls = self._extract_medias(self._response)
@@ -77,7 +87,7 @@ class Client:
         for audio_url in audio_urls:
             chatbot += [[None, (audio_url,)]]
 
-        self._client._save_context(self._message, self._response)
+        self._client._save_context(self._inputs, self._response)
 
         return chatbot
 
@@ -101,7 +111,8 @@ def generate_response(state, chatbot):
     return state["client"].generate_response(chatbot)
 
 
-with gr.Blocks() as demo:
+css = ".json {height: 527px; overflow: scroll;} .json-holder {height: 527px; overflow: scroll;}"
+with gr.Blocks(css=css) as demo:
     state = gr.State(value={"client": Client()})
 
     gr.Markdown("<h1><center>CogsGPT</center></h1>")
@@ -111,12 +122,10 @@ with gr.Blocks() as demo:
     gr.Markdown("<h3>Output</h3>")
     with gr.Row():
         with gr.Column(scale=0.6):
-            chatbot = gr.Chatbot([], label="CogsGPT").style(height=500)
+            chatbot = gr.Chatbot([], label="Chatbot").style(height=500)
         
         with gr.Column(scale=0.4):
-            task_output = gr.JSON(label="Tasks").style(container=True)
-            # image_output = gr.Image(type="filepath", label="Image", interactive=False).style(height=200)
-            # audio_output = gr.Audio(type="filepath", label="Audio", interactive=False).style(height=100)
+            task_output = gr.JSON(label="Tasks", elem_classes="json")
 
     # Input Row
     gr.Markdown("<h3>Input</h3>")
@@ -164,5 +173,15 @@ with gr.Blocks() as demo:
         fn=generate_response,
         inputs=[state, chatbot],
         outputs=[chatbot])
+    
+    # Examples
+    gr.Examples(
+        examples=[
+            ["How much tax was paid on this receipt?", "tests/examples/receipt.png", None],
+            ["Extract the customer name and id from the file.", "tests/examples/invoice.png", None],
+            ["Write a story based on the content of this image, and then read it out for me.", "tests/examples/wedding.png", None],
+        ],
+        inputs=[text_input, image_input, audio_input],
+    )
 
 demo.launch(show_api=False)
