@@ -6,7 +6,7 @@ from langchain.prompts.chat import (
 )
 from langchain.schema import BaseMessage
 
-from cogsgpt import llm_manager
+from cogsgpt import LLMManager
 from cogsgpt.cogsmodel import BaseModel
 
 
@@ -15,7 +15,8 @@ class TextGenerationModel(BaseModel):
         super().__init__()
         self._task_name = "text-generation"
 
-        self._llm = llm_manager.LLM
+        # NOTE: LLMManger is a singleton class. It should have been instantiated in the main process.
+        self._llm = LLMManager().LLM
         self._prompt = self._create_prompt()
 
     def _create_prompt(self) -> ChatPromptTemplate:

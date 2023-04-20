@@ -20,6 +20,20 @@ class FileSource(Enum):
     REMOTE = "remote"
 
 
+def singleton(cls):
+    """
+    decorator to make a class a singleton
+    """
+    instances = {}
+
+    def getinstance(*args, **kwargs):
+        if cls not in instances:
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
+
+    return getinstance
+
+
 def detect_file_source(file_path: str) -> Optional[str]:
     # Check if the input is a local file path
     if os.path.isfile(file_path):

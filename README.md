@@ -29,7 +29,6 @@ If you want to use OpenAI API, you need to set these environment variables:
 ```bash
 export OPENAI_API_TYPE="openai"
 export OPENAI_API_KEY="<OpenAI API Key>"
-export OPENAI_MODEL_NAME="<OpenAI Model Name>"
 ```
 
 If you want to use Azure OpenAI Service, you need to set these environment variables:
@@ -37,8 +36,6 @@ If you want to use Azure OpenAI Service, you need to set these environment varia
 export OPENAI_API_TYPE="azure"
 export OPENAI_API_BASE="<Azure OpenAI Service Endpoint>"
 export OPENAI_API_KEY="<Azure OpenAI Service Key>"
-export OPENAI_MODEL_NAME="<Deployment Name>"
-export OPENAI_MODEL_VERSION="<Model Version>"
 ```
 
 #### Azure Cognitive Service Requirements
@@ -63,11 +60,15 @@ pip install cogsgpt
 
 ### Usage
 
-You can use CogsGPT in your own application to process image or audio inputs within 3 lines of codes:
+You can use CogsGPT in your own application to process image or audio inputs within several lines of codes:
 ```python
 from cogsgpt import CogsGPT
 
-agent = CogsGPT()
+if os.environ["OPENAI_API_TYPE"] == "openai":
+    agent = CogsGPT(model_name="gpt-3.5-turbo")
+elif os.environ["OPENAI_API_TYPE"] == "azure":
+    agent = CogsGPT(deployment_name="<YOUR DEPLOYMENT NAME>", openai_api_version="<YOUR DEPLOYMENT VERSION>")
+
 agent.chat("What's the content in a.jpg?")
 ```
 

@@ -1,4 +1,5 @@
 import json
+import os
 from typing import Dict, List
 import colorlog
 import pkg_resources
@@ -13,7 +14,7 @@ from langchain.prompts.chat import (
 from langchain.schema import BaseMessage
 from langchain.memory import ConversationBufferMemory
 
-from cogsgpt import awesome_prompts, ArgsType, LanguageType, llm_manager
+from cogsgpt import awesome_prompts, ArgsType, LanguageType, LLMManager
 from cogsgpt.cogsmodel import *
 
 
@@ -56,7 +57,20 @@ TaskMap = {
 
 
 class CogsGPT():
-    def __init__(self) -> None:
+    # Optional Env Vars
+    OPENAI_MODEL_NAME = os.environ.get("OPENAI_MODEL_NAME", "")
+    OPENAI_MODEL_VERSION = os.environ.get("OPENAI_MODEL_VERSION", "")
+
+    def __init__(self,
+                 model_name: str = OPENAI_MODEL_NAME,
+                 deployment_name: str = OPENAI_MODEL_NAME,
+                 deployment_version: str = OPENAI_MODEL_VERSION,
+                 temperature: float = 0.7,
+                 request_timeout: int = 60,
+                 max_retries: int = 6,
+                 max_tokens: int | None = None,
+                 verbose: bool = False,
+                 ) -> None:
         self.task_metas = json.load(open(pkg_resources.resource_filename('cogsgpt', 'metas/task_metas.json'), "r"))
         self.parse_task_examples = json.load(open(pkg_resources.resource_filename('cogsgpt', 'metas/parse_task_examples.json'), 'r'))
         self.generate_response_presteps = json.load(open(pkg_resources.resource_filename('cogsgpt', 'metas/generate_response_presteps.json'), 'r'))
@@ -66,7 +80,17 @@ class CogsGPT():
 
         self.memory = ConversationBufferMemory(memory_key='history')
 
-        self.chat_model = llm_manager.LLM
+        # NOTE: LLMManager is a singleton class. It will be instantiated here.
+        self.chat_model = LLMManager(
+            model_name=model_name,
+            deployment_name=deployment_name,
+            deployment_version=deployment_version,
+            temperature=temperature,
+            request_timeout=request_timeout,
+            max_retries=max_retries,
+            max_tokens=max_tokens,
+            verbose=verbose,
+        ).LLM
 
     def _save_context(self, human_input: str, ai_response: str) -> None:
         self.memory.chat_memory.add_user_message(human_input)
