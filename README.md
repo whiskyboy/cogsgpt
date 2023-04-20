@@ -76,7 +76,15 @@ Or you can experience an interactive console application with the following comm
 python ./tests/test_awesome_chat.py
 ```
 
-Enjoy your chat!
+### Gradio App
+
+The Gradio demo is now hosted on [Hugging Face Space](https://huggingface.co/spaces/whiskyboy/CogsGPT). You can also run the following commands to start the demo locally:
+```bash
+pip install gradio
+python app.py
+```
+
+Now open your favorite browser and ENJOY THE CHAT!
 
 ## License
 
