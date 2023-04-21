@@ -8,14 +8,12 @@ from cogsgpt.utils import ArgsType, LanguageType
 from cogsgpt.cogsmodel import BaseModel
 
 
-COGS_KEY = os.environ['COGS_KEY']
-COGS_ENDPOINT = os.environ['COGS_ENDPOINT']
-COGS_REGION = os.environ['COGS_REGION']
-
-
 class Text2SpeechModel(BaseModel):
     def __init__(self) -> None:
         super().__init__()
+
+        COGS_KEY = os.environ['COGS_KEY']
+        COGS_REGION = os.environ['COGS_REGION']
         self.speech_config = speechsdk.SpeechConfig(subscription=COGS_KEY, region=COGS_REGION)
 
         self.supported_language = {
@@ -43,6 +41,9 @@ class Text2SpeechModel(BaseModel):
 class Speech2TextModel(BaseModel):
     def __init__(self) -> None:
         super().__init__()
+        
+        COGS_KEY = os.environ['COGS_KEY']
+        COGS_REGION = os.environ['COGS_REGION']
         self.speech_config = speechsdk.SpeechConfig(subscription=COGS_KEY, region=COGS_REGION)
 
         self.supported_language = {

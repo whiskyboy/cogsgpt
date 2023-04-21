@@ -7,14 +7,12 @@ from cogsgpt.utils import ArgsType, LanguageType
 from cogsgpt.cogsmodel import BaseModel
 
 
-COGS_KEY = os.environ['COGS_KEY']
-COGS_ENDPOINT = os.environ['COGS_ENDPOINT']
-COGS_REGION = os.environ['COGS_REGION']
-
-
 class TextTranslationModel(BaseModel):
     def __init__(self) -> None:
         super().__init__()
+
+        COGS_KEY = os.environ['COGS_KEY']
+        COGS_REGION = os.environ['COGS_REGION']
         self.translate_endpoint = "https://api.cognitive.microsofttranslator.com/translate"
         self.headers = {
             'Ocp-Apim-Subscription-Key': COGS_KEY,

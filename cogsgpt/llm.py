@@ -5,15 +5,6 @@ from langchain.chat_models import AzureChatOpenAI, ChatOpenAI
 from cogsgpt.utils import singleton
 
 
-# Required Env Vars
-OPENAI_API_TYPE = os.environ["OPENAI_API_TYPE"]
-OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
-
-# Required for Azure
-if OPENAI_API_TYPE == "azure":
-    OPENAI_API_BASE = os.environ["OPENAI_API_BASE"]
-
-
 @singleton
 class LLMManager():
     def __init__(self,
@@ -22,6 +13,14 @@ class LLMManager():
                  deployment_version: str = "",
                  **kwargs
                  ) -> None:
+        # Required Env Vars
+        OPENAI_API_TYPE = os.environ["OPENAI_API_TYPE"]
+        OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+
+        # Required for Azure
+        if OPENAI_API_TYPE == "azure":
+            OPENAI_API_BASE = os.environ["OPENAI_API_BASE"]
+
         if OPENAI_API_TYPE == "azure":
             self._LLM = AzureChatOpenAI(
                 openai_api_type=OPENAI_API_TYPE,

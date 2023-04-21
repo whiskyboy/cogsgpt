@@ -9,13 +9,12 @@ from cogsgpt.cogsmodel import BaseModel
 from cogsgpt.utils import ArgsType, FileSource, LanguageType, detect_file_source
 
 
-COGS_KEY = os.environ['COGS_KEY']
-COGS_ENDPOINT = os.environ['COGS_ENDPOINT']
-
-
 class FormRecognizerModel(BaseModel):
     def __init__(self) -> None:
         super().__init__()
+
+        COGS_KEY = os.environ['COGS_KEY']
+        COGS_ENDPOINT = os.environ['COGS_ENDPOINT']
         self.document_analysis_client = DocumentAnalysisClient(
             endpoint=COGS_ENDPOINT,
             credential=AzureKeyCredential(COGS_KEY)

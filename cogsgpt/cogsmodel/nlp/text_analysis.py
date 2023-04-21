@@ -9,13 +9,12 @@ from cogsgpt.utils import ArgsType, LanguageType
 from cogsgpt.cogsmodel import BaseModel
 
 
-COGS_KEY = os.environ['COGS_KEY']
-COGS_ENDPOINT = os.environ['COGS_ENDPOINT']
-
-
 class BaseAnalysisModel(BaseModel, abc.ABC):
     def __init__(self) -> None:
         super().__init__()
+        
+        COGS_KEY = os.environ['COGS_KEY']
+        COGS_ENDPOINT = os.environ['COGS_ENDPOINT']
         ta_credential = AzureKeyCredential(COGS_KEY)
         self.text_analytics_client = TextAnalyticsClient(
             endpoint=COGS_ENDPOINT,

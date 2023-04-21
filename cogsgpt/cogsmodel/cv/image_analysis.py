@@ -7,13 +7,12 @@ from cogsgpt.cogsmodel import BaseModel
 from cogsgpt.utils import ArgsType, FileSource, LanguageType, detect_file_source
 
 
-COGS_KEY = os.environ['COGS_KEY']
-COGS_ENDPOINT = os.environ['COGS_ENDPOINT']
-
-
 class ImageAnalysisModel(BaseModel):
     def __init__(self) -> None:
         super().__init__()
+        
+        COGS_KEY = os.environ['COGS_KEY']
+        COGS_ENDPOINT = os.environ['COGS_ENDPOINT']
         self.service_options = sdk.VisionServiceOptions(COGS_ENDPOINT, COGS_KEY)
         self.analysis_options = sdk.ImageAnalysisOptions()
         self.analysis_options.features = (
