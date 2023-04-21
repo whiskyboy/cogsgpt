@@ -94,6 +94,9 @@ class CogsGPT():
             verbose=verbose,
         ).LLM
 
+        if verbose:
+            logger.setLevel(colorlog.DEBUG)
+
     def _save_context(self, human_input: str, ai_response: str) -> None:
         self.memory.chat_memory.add_user_message(human_input)
         self.memory.chat_memory.add_ai_message(ai_response)

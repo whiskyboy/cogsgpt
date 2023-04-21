@@ -10,6 +10,7 @@ class Client:
         self._client = CogsGPT(
             model_name="gpt-3.5-turbo",
             temperature=0,
+            verbose=True,
         )
 
     def _move_file(self, src):
