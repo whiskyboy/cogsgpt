@@ -4,7 +4,7 @@ import time
 
 import azure.cognitiveservices.speech as speechsdk
 
-from cogsgpt.utils import ArgsType, LanguageType
+from cogsgpt.schema import ArgsType, LanguageType
 from cogsgpt.cogsmodel import BaseModel
 
 

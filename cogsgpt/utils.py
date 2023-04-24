@@ -1,40 +1,23 @@
-from enum import Enum
+from __future__ import annotations
+
 import os
-from typing import Optional
 from urllib.parse import urlparse
 
+from cogsgpt.schema import FileSource
 
-class ArgsType(Enum):
-    TEXT = "text"
-    IMAGE = "image"
-    AUDIO = "audio"
-
-
-class LanguageType(Enum):
-    Chinese = "chinese"
-    English = "english"
-
-
-class FileSource(Enum):
-    LOCAL = "local"
-    REMOTE = "remote"
-
-
-def singleton(cls):
+def detect_file_source(file_path: str) -> FileSource:
     """
-    decorator to make a class a singleton
+    Detect whether the input is a local file path or a web URL.
+
+    Args:
+        file_path (str): The input file path or web URL.
+
+    Returns:
+        FileSource: The detected file source.
+
+    Raises:
+        ValueError: If the input is neither a local file path nor a web URL.
     """
-    instances = {}
-
-    def getinstance(*args, **kwargs):
-        if cls not in instances:
-            instances[cls] = cls(*args, **kwargs)
-        return instances[cls]
-
-    return getinstance
-
-
-def detect_file_source(file_path: str) -> Optional[str]:
     # Check if the input is a local file path
     if os.path.isfile(file_path):
         return FileSource.LOCAL

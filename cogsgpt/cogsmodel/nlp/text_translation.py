@@ -3,7 +3,7 @@ import uuid
 
 import requests
 
-from cogsgpt.utils import ArgsType, LanguageType
+from cogsgpt.schema import ArgsType, LanguageType
 from cogsgpt.cogsmodel import BaseModel
 
 

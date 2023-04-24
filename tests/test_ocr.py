@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, "./")
 
-from cogsgpt.utils import ArgsType
+from cogsgpt.schema import ArgsType
 from cogsgpt.cogsmodel.cv import FormRecognizerModel
 
 if __name__ == '__main__':

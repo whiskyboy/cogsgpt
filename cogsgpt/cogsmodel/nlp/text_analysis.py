@@ -5,7 +5,7 @@ from typing import List
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 
-from cogsgpt.utils import ArgsType, LanguageType
+from cogsgpt.schema import ArgsType, LanguageType
 from cogsgpt.cogsmodel import BaseModel
 
 

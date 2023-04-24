@@ -4,7 +4,8 @@ from typing import Dict, List
 import azure.ai.vision as sdk
 
 from cogsgpt.cogsmodel import BaseModel
-from cogsgpt.utils import ArgsType, FileSource, LanguageType, detect_file_source
+from cogsgpt.schema import ArgsType, FileSource, LanguageType
+from cogsgpt.utils import detect_file_source
 
 
 class ImageAnalysisModel(BaseModel):

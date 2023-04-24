@@ -1,0 +1,76 @@
+image-caption:
+  description: >-
+    Image captioning is the task of generating a textual description of an image. 
+    It should be called when there is a need to provide a textual description of an image. 
+    It should NOT be called when there is a need to recognize the text in an image. 
+    It accepts 'image' and 'from_language' as arguments.
+
+object-detection:
+  description: >-
+    Object detection is a task that involves identifying and locating objects within an image. 
+    It should be called when the task involves identifying and locating multiple objects within an image. 
+    It accepts 'image' and 'from_language' as arguments.
+
+image-tagging:
+  description: >-
+    Image-tagging is a task that assigns descriptive labels or keywords to an image, which can then be used for organization, search, or analysis. 
+    We should call for image-tagging when we need to categorize and label an image. 
+    It accepts 'image' and 'from_language' as arguments.
+    
+OCR:
+  description: >-
+    OCR is a task that read or extract chracters from an image or a document. 
+    We should call for OCR when we need to read or extract text information in an image or a document. 
+    It accepts 'image' and 'from_language' as arguments.
+    
+form-recognizer:
+  description: >-
+    Form Recognizer is a task that can analyze and extract textual information from structured documents such as receipts, invoices, and forms. 
+    This task should be called when you need to extract and organize information from PDF/Work/Excel documents. 
+    It accepts 'image' and 'from_language' as arguments.
+    
+text2speech:
+  description: >-
+    text2speech is a task that converts text into audio. 
+    We call for it when we need to convert text input into audio output, like reading a piece of text. 
+    It accepts 'text' and 'from_language' as arguments.
+    
+speech2text:
+  description: >-
+    speech2text is a task that converts audio into text format. 
+    It can be used to transcribe an audio recordings. 
+    It accepts 'audio' and 'from_language' as arguments.
+
+key-phrase:
+  description: >-
+    Keyphrase extraction is a task involves identifying and extracting a set of relevant and meaningful words or phrases from a given text that can summarize its content or provide a quick overview. 
+    It should be called when we want to identify the most important concepts or themes in a document or a corpus of documents. 
+    It accepts 'text' and 'from_language' as arguments.
+    
+entity-linking:
+  description: >-
+    Entity linking is a task of identifying named entities in text and linking them to their corresponding entity in a knowledge base or database. 
+    It accepts 'text' and 'from_language' as arguments.
+    
+entity-recognition:
+  description: >-
+    Entity recognition is a task that involves identifying and categorizing named entities in text such as people, organizations, locations, and numerical expressions. 
+    It should be called when there is a need to extract specific information from text data and automate the process of identifying entities. 
+    It accepts 'text' and 'from_language' as arguments.
+    
+sentiment-analysis:
+  description: >-
+    Sentiment analysis is a task that analyzes and determines the emotional tone in a piece of text. 
+    It can be used to identify the sentiment as positive, negative, or neutral. 
+    It accepts 'text' and 'from_language' as arguments.
+
+personally-identifiable-information: 
+  description: >-
+    Personally-identifiable-information (PII) can uniquely identify an individual and be used for malicious purposes such as identity theft or fraud. 
+    It accepts 'text' and 'from_language' as arguments.
+    
+text-generation:
+  description: >-
+    Text-generation is the task of generating text from a given input. 
+    It should be called when there is a need to generate text from a given input, such as summarization, translation, and text creation. 
+    It accepts 'text' as a required argument and 'from_language'/'to_language' as optional arguments. 

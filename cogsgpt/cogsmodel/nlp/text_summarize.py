@@ -4,7 +4,7 @@ import os
 from azure.ai.textanalytics import TextAnalyticsClient, ExtractSummaryAction, AbstractSummaryAction
 from azure.core.credentials import AzureKeyCredential
 
-from cogsgpt.utils import ArgsType, LanguageType
+from cogsgpt.schema import ArgsType, LanguageType
 from cogsgpt.cogsmodel import BaseModel
 
 
@@ -21,7 +21,7 @@ class BaseSummarizeModel(BaseModel, abc.ABC):
         )
 
         self.supported_language = {
-            LanguageType.English.value: "en-us",
+            LanguageType.English.value: "en",
             LanguageType.Chinese.value: "zh-hans",
         }
 

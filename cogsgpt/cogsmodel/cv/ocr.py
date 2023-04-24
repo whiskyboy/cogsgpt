@@ -6,7 +6,8 @@ from azure.ai.formrecognizer import DocumentAnalysisClient
 from azure.core.credentials import AzureKeyCredential
 
 from cogsgpt.cogsmodel import BaseModel
-from cogsgpt.utils import ArgsType, FileSource, LanguageType, detect_file_source
+from cogsgpt.schema import ArgsType, FileSource, LanguageType
+from cogsgpt.utils import detect_file_source
 
 
 class FormRecognizerModel(BaseModel):

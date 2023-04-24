@@ -74,15 +74,15 @@ class Client:
         return chatbot
 
     def parse_task(self):
-        self._task_list = self._client._parse_tasks(self._inputs)
+        self._task_list = self._client.parse_tasks(self._inputs)
         return self._task_list
 
     def execute_task(self):
-        self._task_result_list = self._client._execute_tasks(self._text_input, self._task_list)
+        self._task_result_list = self._client.execute_tasks(self._text_input, self._task_list)
         return self._task_result_list
 
     def generate_response(self, chatbot):
-        self._response = self._client._generate_response(self._text_input, self._task_result_list)
+        self._response = self._client.generate_response(self._text_input, self._task_result_list)
         chatbot += [[None, self._response]]
 
         image_urls, audio_urls = self._extract_medias(self._response)
@@ -91,7 +91,7 @@ class Client:
         for audio_url in audio_urls:
             chatbot += [[None, (audio_url,)]]
 
-        self._client._save_context(self._inputs, self._response)
+        self._client.save_context(self._inputs, self._response)
 
         return chatbot
 
