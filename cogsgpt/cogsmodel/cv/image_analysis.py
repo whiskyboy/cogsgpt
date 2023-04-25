@@ -55,13 +55,16 @@ class ImageAnalysisModel(BaseModel, ABC):
 class ImageCaptionModel(ImageAnalysisModel):
     def __init__(self) -> None:
         super().__init__()
-        self.analysis_options.features = sdk.ImageAnalysisFeature.CAPTION
+        self.analysis_options.features = sdk.ImageAnalysisFeature.DENSE_CAPTIONS
 
     def _parse_result(self, image_file: str, result: sdk.ImageAnalysisResult) -> Dict:
-        if result.reason == sdk.ImageAnalysisResultReason.ANALYZED and result.caption is not None:
+        if result.reason == sdk.ImageAnalysisResultReason.ANALYZED and result.dense_captions is not None:
             return {
-                "caption": result.caption.content,
-                "confidence": f"{result.caption.confidence * 100:.2f}%",
+                "captions": [
+                    {
+                        "text": caption.content,
+                        "confidence": f"{caption.confidence * 100:.2f}%",
+                    } for caption in result.dense_captions]
             }
         else:
             return {}
@@ -78,12 +81,6 @@ class ObjectDetectionModel(ImageAnalysisModel):
                 "objects": [
                     {
                         "object": obj.name,
-                        "bounding_box": {
-                            "x": obj.bounding_box.x,
-                            "y": obj.bounding_box.y,
-                            "w": obj.bounding_box.w,
-                            "h": obj.bounding_box.h,
-                        },
                         "confidence": f"{obj.confidence * 100:.2f}%",
                     }
                     for obj in result.objects
@@ -128,18 +125,6 @@ class PeopleDetectionModel(ImageAnalysisModel):
     def _parse_result(self, image_file: str, result: sdk.ImageAnalysisResult) -> Dict:
         if result.reason == sdk.ImageAnalysisResultReason.ANALYZED and result.people is not None:
             return {
-                "people": [
-                    {
-                        "bounding_box": {
-                            "x": person.bounding_box.x,
-                            "y": person.bounding_box.y,
-                            "w": person.bounding_box.w,
-                            "h": person.bounding_box.h,
-                        },
-                        "confidence": f"{person.confidence * 100:.2f}%",
-                    }
-                    for person in result.people
-                ],
                 "image": draw_rectangles(image_file,
                                          rectangles=[(
                                             person.bounding_box.x,
@@ -162,12 +147,6 @@ class SmartCropModel(ImageAnalysisModel):
             crop_result = result.crop_suggestions[0]
             return {
                 "crop_ratio": crop_result.aspect_ratio,
-                "crop_area": {
-                    "x": crop_result.bounding_box.x,
-                    "y": crop_result.bounding_box.y,
-                    "w": crop_result.bounding_box.w,
-                    "h": crop_result.bounding_box.h,
-                },
                 "image": crop_rectangle(image_file, rectangle=(
                     crop_result.bounding_box.x,
                     crop_result.bounding_box.y,
