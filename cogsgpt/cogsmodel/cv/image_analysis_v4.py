@@ -12,7 +12,7 @@ from cogsgpt.utils import detect_file_source
 from cogsgpt.cogsmodel.cv.utils import draw_rectangles, crop_rectangle
 
 
-class ImageAnalysisModel(BaseModel, ABC):
+class ImageAnalysisV4Model(BaseModel, ABC):
     def __init__(self) -> None:
         super().__init__()
         
@@ -52,7 +52,7 @@ class ImageAnalysisModel(BaseModel, ABC):
         return str(self._analyze_image(image_file, language))
 
 
-class ImageCaptionModel(ImageAnalysisModel):
+class ImageCaptionModel(ImageAnalysisV4Model):
     def __init__(self) -> None:
         super().__init__()
         self.analysis_options.features = sdk.ImageAnalysisFeature.DENSE_CAPTIONS
@@ -70,7 +70,7 @@ class ImageCaptionModel(ImageAnalysisModel):
             return {}
 
 
-class ObjectDetectionModel(ImageAnalysisModel):
+class ObjectDetectionModel(ImageAnalysisV4Model):
     def __init__(self) -> None:
         super().__init__()
         self.analysis_options.features = sdk.ImageAnalysisFeature.OBJECTS
@@ -82,9 +82,7 @@ class ObjectDetectionModel(ImageAnalysisModel):
                     {
                         "object": obj.name,
                         "confidence": f"{obj.confidence * 100:.2f}%",
-                    }
-                    for obj in result.objects
-                ],
+                    } for obj in result.objects],
                 "image": draw_rectangles(image_file,
                                          rectangles=[(
                                             obj.bounding_box.x,
@@ -97,7 +95,7 @@ class ObjectDetectionModel(ImageAnalysisModel):
             return {}
 
 
-class ImageTaggingModel(ImageAnalysisModel):
+class ImageTaggingModel(ImageAnalysisV4Model):
     def __init__(self) -> None:
         super().__init__()
         self.analysis_options.features = sdk.ImageAnalysisFeature.TAGS
@@ -109,15 +107,13 @@ class ImageTaggingModel(ImageAnalysisModel):
                     {
                         "tag": tag.name,
                         "confidence": f"{tag.confidence * 100:.2f}%",
-                    }
-                    for tag in result.tags
-                ],
+                    } for tag in result.tags],
             }
         else:
             return {}
 
 
-class PeopleDetectionModel(ImageAnalysisModel):
+class PeopleDetectionModel(ImageAnalysisV4Model):
     def __init__(self) -> None:
         super().__init__()
         self.analysis_options.features = sdk.ImageAnalysisFeature.PEOPLE
@@ -125,6 +121,7 @@ class PeopleDetectionModel(ImageAnalysisModel):
     def _parse_result(self, image_file: str, result: sdk.ImageAnalysisResult) -> Dict:
         if result.reason == sdk.ImageAnalysisResultReason.ANALYZED and result.people is not None:
             return {
+                "count": len(result.people),
                 "image": draw_rectangles(image_file,
                                          rectangles=[(
                                             person.bounding_box.x,
@@ -137,7 +134,7 @@ class PeopleDetectionModel(ImageAnalysisModel):
             return {}
 
 
-class SmartCropModel(ImageAnalysisModel):
+class SmartCropModel(ImageAnalysisV4Model):
     def __init__(self) -> None:
         super().__init__()
         self.analysis_options.features = sdk.ImageAnalysisFeature.CROP_SUGGESTIONS
@@ -157,7 +154,7 @@ class SmartCropModel(ImageAnalysisModel):
             return {}
 
 
-class ImageTextModel(ImageAnalysisModel):
+class ImageTextModel(ImageAnalysisV4Model):
     def __init__(self) -> None:
         super().__init__()
         self.analysis_options.features = sdk.ImageAnalysisFeature.TEXT

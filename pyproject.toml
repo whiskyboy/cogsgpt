@@ -19,6 +19,7 @@ classifiers = [
 keywords = ["chatgpt", "cognitive service", "llm"]
 dependencies = [
     "azure-ai-vision",
+    "azure-cognitiveservices-vision-computervision",
     "azure-ai-formrecognizer",
     "azure-ai-textanalytics == 5.3.0b1",
     "azure-cognitiveservices-speech",
@@ -26,7 +27,7 @@ dependencies = [
     "jinja2",
     "langchain",
     "openai",
-    "Pillow",
+    "pillow",
 ]
 requires-python = ">=3.8"
 

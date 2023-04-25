@@ -32,7 +32,8 @@ def load_image(image_file: str) -> Image:
 def draw_rectangles(src_image_file: str, tgt_image_file: str | None = None,
                     rectangles: List[Tuple[int, int, int, int]] = [], texts: List[str] = [],
                     line_color: str = 'red', line_width: int = 2,
-                    text_color: str = 'blue', text_offset: Tuple[int, int] = (5, 5)) -> str:
+                    text_color: str = 'black', text_bg_color: str = 'white',
+                    text_offset: Tuple[int, int] = (5, 5)) -> str:
     if len(texts) > 0:
         assert len(rectangles) == len(texts), "The size of rectangles and texts should be the same."
 
@@ -42,6 +43,8 @@ def draw_rectangles(src_image_file: str, tgt_image_file: str | None = None,
     for bbox, text in zip(rectangles, texts):
         draw.rectangle(bbox, outline=line_color, width=line_width)
         text_x, text_y = bbox[0] + text_offset[0], bbox[1] + text_offset[1]
+        left, top, right, bottom = draw.textbbox((text_x, text_y), text)
+        draw.rectangle((left-5, top-5, right+5, bottom+5), fill=text_bg_color)
         draw.text((text_x, text_y), text, fill=text_color)
 
     if tgt_image_file is None:
