@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+from abc import ABC, abstractmethod
 import os
 from typing import Dict, List
 
@@ -6,9 +9,10 @@ import azure.ai.vision as sdk
 from cogsgpt.cogsmodel import BaseModel
 from cogsgpt.schema import ArgsType, FileSource, LanguageType
 from cogsgpt.utils import detect_file_source
+from cogsgpt.cogsmodel.cv.utils import draw_rectangles, crop_rectangle
 
 
-class ImageAnalysisModel(BaseModel):
+class ImageAnalysisModel(BaseModel, ABC):
     def __init__(self) -> None:
         super().__init__()
         
@@ -16,29 +20,14 @@ class ImageAnalysisModel(BaseModel):
         COGS_ENDPOINT = os.environ['COGS_ENDPOINT']
         self.service_options = sdk.VisionServiceOptions(COGS_ENDPOINT, COGS_KEY)
         self.analysis_options = sdk.ImageAnalysisOptions()
-        self.analysis_options.features = (
-            sdk.ImageAnalysisFeature.CAPTION |
-            sdk.ImageAnalysisFeature.OBJECTS |
-            sdk.ImageAnalysisFeature.TAGS |
-            sdk.ImageAnalysisFeature.TEXT
-        )
         self.supported_language = {
             LanguageType.English.value: "en",
             LanguageType.Chinese.value: "zh-Hans",
         }
 
-    def _parse_result(self, result: sdk.ImageAnalysisResult) -> Dict:
-        result_dict = {}
-        if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
-            if result.caption is not None:
-                result_dict["caption"] = result.caption.content
-            if result.objects is not None:
-                result_dict["objects"] = [obj.name for obj in result.objects]
-            if result.tags is not None:
-                result_dict["tags"] = [tag.name for tag in result.tags]
-            if result.text is not None:
-                result_dict["text"] = [line.content for line in result.text.lines]
-        return result_dict
+    @abstractmethod
+    def _parse_result(self, image_file: str, result: sdk.ImageAnalysisResult) -> Dict:
+        pass
 
     def _analyze_image(self, image_file: str, language: str = "en") -> Dict:
         image_src = detect_file_source(image_file)
@@ -54,7 +43,7 @@ class ImageAnalysisModel(BaseModel):
         image_analyzer = sdk.ImageAnalyzer(self.service_options, vision_source, self.analysis_options)
         result = image_analyzer.analyze()
 
-        return self._parse_result(result)
+        return self._parse_result(image_file, result)
 
     def run(self, *args, **kwargs) -> str:
         image_file = kwargs[ArgsType.IMAGE.value]
@@ -68,9 +57,14 @@ class ImageCaptionModel(ImageAnalysisModel):
         super().__init__()
         self.analysis_options.features = sdk.ImageAnalysisFeature.CAPTION
 
-    def _analyze_image(self, image_file: str, language: str = "en") -> str:
-        result = super()._analyze_image(image_file, language)
-        return result.get("caption", "")
+    def _parse_result(self, image_file: str, result: sdk.ImageAnalysisResult) -> Dict:
+        if result.reason == sdk.ImageAnalysisResultReason.ANALYZED and result.caption is not None:
+            return {
+                "caption": result.caption.content,
+                "confidence": f"{result.caption.confidence * 100:.2f}%",
+            }
+        else:
+            return {}
 
 
 class ObjectDetectionModel(ImageAnalysisModel):
@@ -78,9 +72,32 @@ class ObjectDetectionModel(ImageAnalysisModel):
         super().__init__()
         self.analysis_options.features = sdk.ImageAnalysisFeature.OBJECTS
 
-    def _analyze_image(self, image_file: str, language: str = "en") -> List:
-        result = super()._analyze_image(image_file, language)
-        return result.get("objects", [])
+    def _parse_result(self, image_file: str, result: sdk.ImageAnalysisResult) -> Dict:
+        if result.reason == sdk.ImageAnalysisResultReason.ANALYZED and result.objects is not None:
+            return {
+                "objects": [
+                    {
+                        "object": obj.name,
+                        "bounding_box": {
+                            "x": obj.bounding_box.x,
+                            "y": obj.bounding_box.y,
+                            "w": obj.bounding_box.w,
+                            "h": obj.bounding_box.h,
+                        },
+                        "confidence": f"{obj.confidence * 100:.2f}%",
+                    }
+                    for obj in result.objects
+                ],
+                "image": draw_rectangles(image_file,
+                                         rectangles=[(
+                                            obj.bounding_box.x,
+                                            obj.bounding_box.y,
+                                            obj.bounding_box.x + obj.bounding_box.w,
+                                            obj.bounding_box.y + obj.bounding_box.h) for obj in result.objects],
+                                         texts=[f"{obj.name} ({obj.confidence * 100:.2f}%)" for obj in result.objects]),
+            }
+        else:
+            return {}
 
 
 class ImageTaggingModel(ImageAnalysisModel):
@@ -88,9 +105,77 @@ class ImageTaggingModel(ImageAnalysisModel):
         super().__init__()
         self.analysis_options.features = sdk.ImageAnalysisFeature.TAGS
 
-    def _analyze_image(self, image_file: str, language: str = "en") -> List:
-        result = super()._analyze_image(image_file, language)
-        return result.get("tags", [])
+    def _parse_result(self, image_file: str, result: sdk.ImageAnalysisResult) -> Dict:
+        if result.reason == sdk.ImageAnalysisResultReason.ANALYZED and result.tags is not None:
+            return {
+                "tags": [
+                    {
+                        "tag": tag.name,
+                        "confidence": f"{tag.confidence * 100:.2f}%",
+                    }
+                    for tag in result.tags
+                ],
+            }
+        else:
+            return {}
+
+
+class PeopleDetectionModel(ImageAnalysisModel):
+    def __init__(self) -> None:
+        super().__init__()
+        self.analysis_options.features = sdk.ImageAnalysisFeature.PEOPLE
+
+    def _parse_result(self, image_file: str, result: sdk.ImageAnalysisResult) -> Dict:
+        if result.reason == sdk.ImageAnalysisResultReason.ANALYZED and result.people is not None:
+            return {
+                "people": [
+                    {
+                        "bounding_box": {
+                            "x": person.bounding_box.x,
+                            "y": person.bounding_box.y,
+                            "w": person.bounding_box.w,
+                            "h": person.bounding_box.h,
+                        },
+                        "confidence": f"{person.confidence * 100:.2f}%",
+                    }
+                    for person in result.people
+                ],
+                "image": draw_rectangles(image_file,
+                                         rectangles=[(
+                                            person.bounding_box.x,
+                                            person.bounding_box.y,
+                                            person.bounding_box.x + person.bounding_box.w,
+                                            person.bounding_box.y + person.bounding_box.h) for person in result.people],
+                                         texts=[f"{person.confidence * 100:.2f}%" for person in result.people]),
+            }
+        else:
+            return {}
+
+
+class SmartCropModel(ImageAnalysisModel):
+    def __init__(self) -> None:
+        super().__init__()
+        self.analysis_options.features = sdk.ImageAnalysisFeature.CROP_SUGGESTIONS
+
+    def _parse_result(self, image_file: str, result: sdk.ImageAnalysisResult) -> Dict:
+        if result.reason == sdk.ImageAnalysisResultReason.ANALYZED and result.crop_suggestions is not None:
+            crop_result = result.crop_suggestions[0]
+            return {
+                "crop_ratio": crop_result.aspect_ratio,
+                "crop_area": {
+                    "x": crop_result.bounding_box.x,
+                    "y": crop_result.bounding_box.y,
+                    "w": crop_result.bounding_box.w,
+                    "h": crop_result.bounding_box.h,
+                },
+                "image": crop_rectangle(image_file, rectangle=(
+                    crop_result.bounding_box.x,
+                    crop_result.bounding_box.y,
+                    crop_result.bounding_box.x + crop_result.bounding_box.w,
+                    crop_result.bounding_box.y + crop_result.bounding_box.h)),
+            }
+        else:
+            return {}
 
 
 class ImageTextModel(ImageAnalysisModel):
@@ -98,6 +183,10 @@ class ImageTextModel(ImageAnalysisModel):
         super().__init__()
         self.analysis_options.features = sdk.ImageAnalysisFeature.TEXT
 
-    def _analyze_image(self, image_file: str, language: str = "en") -> List:
-        result = super()._analyze_image(image_file, language)
-        return result.get("text", [])
+    def _parse_result(self, image_file: str, result: sdk.ImageAnalysisResult) -> Dict:
+        if result.reason == sdk.ImageAnalysisResultReason.ANALYZED and result.text is not None:
+            return {
+                "text": [line.content for line in result.text.lines],
+            }
+        else:
+            return {}

@@ -22,10 +22,11 @@ dependencies = [
     "azure-ai-formrecognizer",
     "azure-ai-textanalytics == 5.3.0b1",
     "azure-cognitiveservices-speech",
+    "colorlog",
+    "jinja2",
     "langchain",
     "openai",
-    "jinja2",
-    "colorlog",
+    "Pillow",
 ]
 requires-python = ">=3.8"
 
