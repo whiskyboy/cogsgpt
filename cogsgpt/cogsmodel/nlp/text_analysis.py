@@ -87,3 +87,9 @@ class SentimentAnalysisModel(BaseAnalysisModel):
             "sentence": sentence.text,
             "sentiment": sentence.sentiment,
         } for sentence in response[0].sentences]
+
+
+class LanguageDetectionModel(BaseAnalysisModel):
+    def _analyze(self, text: str, language: str = "en") -> List:
+        response = self.text_analytics_client.detect_language(documents=[text])
+        return [response[0].primary_language.name]

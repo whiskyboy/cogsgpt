@@ -10,8 +10,8 @@ class ArgsType(Enum):
 
 
 class LanguageType(Enum):
-    Chinese = "chinese"
-    English = "english"
+    Chinese = "Chinese"
+    English = "English"
 
 
 class FileSource(Enum):

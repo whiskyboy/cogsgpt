@@ -43,3 +43,10 @@ if __name__ == '__main__':
         ArgsType.TEXT.value: "The food and service were unacceptable. The concierge was nice, however."
     }
     print(model.run(**data))
+
+    # Test LanguageDetectionModel
+    model = LanguageDetectionModel()
+    data = {
+        ArgsType.TEXT.value: "Ce document est rédigé en Français."
+    }
+    print(model.run(**data))

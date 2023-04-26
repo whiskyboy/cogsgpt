@@ -3,6 +3,7 @@ from .text_analysis import EntityLinkingModel
 from .text_analysis import EntityRecognitionModel
 from .text_analysis import PIIModel
 from .text_analysis import SentimentAnalysisModel
+from .text_analysis import LanguageDetectionModel
 
 from .text_summarize import ExtractSummarizeModel
 from .text_summarize import AbstractSummarizeModel
