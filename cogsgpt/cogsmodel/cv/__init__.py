@@ -12,3 +12,4 @@ from .image_analysis_v3 import FaceDetectionModel
 from .image_analysis_v3 import AdultContentDetectionModel
 from .image_analysis_v3 import ColorSchemeDetectionModel
 from .image_analysis_v3 import ImageTypeDetectionModel
+from .remove_background import BackgroundRemover
