@@ -27,7 +27,7 @@ TaskMap = {
     "object-detection": ObjectDetectionModel,
     "image-tagging": ImageTaggingModel,
     "OCR": ImageTextModel,
-    "form-recognizer": FormRecognizerModel,
+    "form-recognizer": FormReadModel,
     "text2speech": Text2SpeechModel,
     "speech2text": Speech2TextModel,
     "key-phrase": KeyPhraseModel,
