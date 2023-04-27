@@ -1,76 +1,121 @@
-image-caption:
-  description: >-
-    Image captioning is the task of generating a textual description of an image. 
-    It should be called when there is a need to provide a textual description of an image. 
-    It should NOT be called when there is a need to recognize the text in an image. 
-    It accepts 'image' and 'from_language' as arguments.
+form-recognizer: >-
+  used when you need to extract text data from a form.
+  It accepts a file type argument as input.
 
-object-detection:
-  description: >-
-    Object detection is a task that involves identifying and locating objects within an image. 
-    It should be called when the task involves identifying and locating multiple objects within an image. 
-    It accepts 'image' and 'from_language' as arguments.
+form-layout: >-
+  used when you need to extract structure text data like tables and paragraphs from a form.
+  It accepts a file type argument as input.
 
-image-tagging:
-  description: >-
-    Image-tagging is a task that assigns descriptive labels or keywords to an image, which can then be used for organization, search, or analysis. 
-    We should call for image-tagging when we need to categorize and label an image. 
-    It accepts 'image' and 'from_language' as arguments.
-    
-OCR:
-  description: >-
-    OCR is a task that read or extract chracters from an image or a document. 
-    We should call for OCR when we need to read or extract text information in an image or a document. 
-    It accepts 'image' and 'from_language' as arguments.
-    
-form-recognizer:
-  description: >-
-    Form Recognizer is a task that can analyze and extract textual information from structured documents such as receipts, invoices, and forms. 
-    This task should be called when you need to extract and organize information from PDF/Work/Excel documents. 
-    It accepts 'image' and 'from_language' as arguments.
-    
-text2speech:
-  description: >-
-    text2speech is a task that converts text into audio. 
-    We call for it when we need to convert text input into audio output, like reading a piece of text. 
-    It accepts 'text' and 'from_language' as arguments.
-    
-speech2text:
-  description: >-
-    speech2text is a task that converts audio into text format. 
-    It can be used to transcribe an audio recordings. 
-    It accepts 'audio' and 'from_language' as arguments.
+form-key-value: >-
+  used when you need to extract key-value pairs text data from a form.
+  It accepts a file type argument as input.
 
-key-phrase:
-  description: >-
-    Keyphrase extraction is a task involves identifying and extracting a set of relevant and meaningful words or phrases from a given text that can summarize its content or provide a quick overview. 
-    It should be called when we want to identify the most important concepts or themes in a document or a corpus of documents. 
-    It accepts 'text' and 'from_language' as arguments.
-    
-entity-linking:
-  description: >-
-    Entity linking is a task of identifying named entities in text and linking them to their corresponding entity in a knowledge base or database. 
-    It accepts 'text' and 'from_language' as arguments.
-    
-entity-recognition:
-  description: >-
-    Entity recognition is a task that involves identifying and categorizing named entities in text such as people, organizations, locations, and numerical expressions. 
-    It should be called when there is a need to extract specific information from text data and automate the process of identifying entities. 
-    It accepts 'text' and 'from_language' as arguments.
-    
-sentiment-analysis:
-  description: >-
-    Sentiment analysis is a task that analyzes and determines the emotional tone in a piece of text. 
-    It can be used to identify the sentiment as positive, negative, or neutral. 
-    It accepts 'text' and 'from_language' as arguments.
+w2-tax-form: >-
+  used when you need to extract structure text data from a W-2 tax form.
+  It accepts a file type argument as input.
 
-personally-identifiable-information: 
-  description: >-
-    Personally-identifiable-information (PII) can uniquely identify an individual and be used for malicious purposes such as identity theft or fraud. 
-    It accepts 'text' and 'from_language' as arguments.
-    
-text-generation:
-  description: >-
-    Text-generation is the task of generating text from a given input. 
-    It should be called when there is a need to generate text from a given input, such as summarization, translation, and text creation. 
-    It accepts 'text' as a required argument and 'from_language'/'to_language' as optional arguments. 
+invoice-form: >-
+  used when you need to extract structure text data from an invoice form.
+  It accepts a file type argument as input.
+
+receipt-form: >-
+  used when you need to extract structure text data from a receipt form.
+  It accepts a file type argument as input.
+
+id-document-form: >-
+  used when you need to extract structure text data from an ID document form.
+  It accepts a file type argument as input.
+
+business-card-form: >-
+  used when you need to extract structure text data from a business card form.
+  It accepts a file type argument as input.
+
+image-caption: >-
+  used when you need to generate a descriptive caption for an image.
+  It accepts an image type argument as input.
+
+object-detection: >-
+  used when you need to detect objects in an image.
+  It accepts an image type argument as input.
+
+image-tagging: >-
+  used when you need to generate tags for an image.
+  It accepts an image type argument as input.
+
+people-detection: >-
+  used when you need to detect people in an image.
+  It accepts an image type argument as input.
+
+smart-crop: >-
+  used when you need to crop an image to a thumbnail that focuses on the most important area of the image.
+  It accepts an image type argument as input.
+
+OCR: >-
+  used when you need to extract text data from an image.
+  It accepts an image type argument as input.
+
+image-categorize: >-
+  used when you need to categorize an image to a predefined category.
+  Especially useful for identifying the landmarks or the celebrities in an image.
+  It accepts an image type argument as input.
+
+brand-detection: >-
+  used when you need to detect brands in an image.
+  It accepts an image type argument as input.
+
+face-detection: >-
+  used when you need to detect faces in an image.
+  It accepts an image type argument as input.
+
+adult-content-detection: >-
+  used when you need to detect if an image contains adult content.
+  It accepts an image type argument as input.
+
+color-scheme-detection: >-
+  used when you need to detect the color scheme of an image.
+  It accepts an image type argument as input.
+
+image-type-detection: >-
+  used when you need to detect the artistic type of an image.
+  It accepts an image type argument as input.
+
+background-remover: >-
+  used when you need to remove the background of an image.
+  It accepts an image type argument as input.
+
+text2speech: >-
+  used when you need to convert text to speech.
+  It accepts a text type argument and a src_language argument as input.
+
+speech2text: >-
+  used when you need to convert speech to text.
+  It accepts an audio type argument and a src_language argument as input.
+
+key-phrase: >-
+  used when you need to extract key phrases from a text.
+  It accepts a text type argument and a src_language argument as input.
+
+entity-linking: >-
+  used when you need to identify entities from a text and link them to a knowledge base such as Wikipedia.
+  It accepts a text type argument and a src_language argument as input.
+
+entity-recognition: >-
+  used when you need to extract entities from a text.
+  It accepts a text type argument and a src_language argument as input.
+
+personally-identifiable-information: >-
+  used when you need to extract personally identifiable information such as social security numbers, phone numbers, and email addresses from a text.
+  It accepts a text type argument and a src_language argument as input.
+
+sentiment-analysis: >-
+  used when you need to analyze the sentiment of a text.
+  It accepts a text type argument and a src_language argument as input.
+
+language-detection: >-
+  used when you need to detect the language type of a text.
+  It accepts a text type argument as input.
+
+text-generation: >-
+  used when you need to generate text from the input text.
+  Typical use cases include but not limited to: text-summarization, text-completion, and text-translation.
+  It accepts a text type argument as input.

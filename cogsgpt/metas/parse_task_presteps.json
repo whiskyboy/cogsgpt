@@ -1,11 +1,11 @@
 [
     {
         "role":"user",
-        "content":"Extract the employee name from a.png"
+        "content":"Extract the employee name from a.pdf"
     },
     {
         "role":"assistant",
-        "content":"[{\"task\": \"form-recognizer\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"a.png\", \"from_language\": \"english\"}}]"
+        "content":"[{\"task\": \"form-recognizer\", \"id\": 0, \"dep\": [-1], \"args\": {\"file\": \"a.pdf\"}}]"
     },
 
     {
@@ -14,7 +14,7 @@
     },
     {
         "role":"assistant",
-        "content":"[{\"task\": \"text2speech\", \"id\": 0, \"dep\": [-1], \"args\": {\"text\": \"how are you\", \"from_language\": \"english\"}}]"
+        "content":"[{\"task\": \"text2speech\", \"id\": 0, \"dep\": [-1], \"args\": {\"text\": \"how are you\", \"src_language\": \"english\"}}]"
     },
 
     {
@@ -23,7 +23,7 @@
     },
     {
         "role":"assistant",
-        "content":"[{\"task\": \"OCR\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"a.png\", \"from_language\": \"english\"}}, {\"task\": \"text-generation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\", \"from_language\": \"english\"}}, {\"task\": \"text2speech\", \"id\": 2, \"dep\": [1], \"args\": {\"text\": \"<GENERATED>-1\", \"from_language\": \"english\"}}]"
+        "content":"[{\"task\": \"OCR\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"a.png\"}}, {\"task\": \"text-generation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\"}}, {\"task\": \"text2speech\", \"id\": 2, \"dep\": [1], \"args\": {\"text\": \"<GENERATED>-1\", \"src_language\": \"english\"}}]"
     },
     
     {
@@ -32,6 +32,6 @@
     },
     {
         "role":"assistant",
-        "content":"[{\"task\": \"image-caption\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"b.png\", \"from_language\": \"english\"}}, {\"task\": \"text-generation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\"}}, {\"task\": \"text2speech\", \"id\": 2, \"dep\": [1], \"args\": {\"text\": \"<GENERATED>-1\", \"from_language\": \"english\"}}]"
+        "content":"[{\"task\": \"image-caption\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"b.png\"}}, {\"task\": \"text-generation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\"}}, {\"task\": \"text2speech\", \"id\": 2, \"dep\": [1], \"args\": {\"text\": \"<GENERATED>-1\", \"src_language\": \"english\"}}]"
     }
 ]

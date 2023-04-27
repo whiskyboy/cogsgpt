@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 import os
-from typing import Dict, List
+from typing import Dict
 
 import azure.ai.vision as sdk
 
 from cogsgpt.cogsmodel import BaseModel
-from cogsgpt.schema import ArgsType, FileSource, LanguageType
+from cogsgpt.schema import ArgsType, FileSource
 from cogsgpt.utils import detect_file_source
 from cogsgpt.cogsmodel.cv.utils import draw_rectangles, crop_rectangle
 
@@ -20,16 +20,12 @@ class ImageAnalysisV4Model(BaseModel, ABC):
         COGS_ENDPOINT = os.environ['COGS_ENDPOINT']
         self.service_options = sdk.VisionServiceOptions(COGS_ENDPOINT, COGS_KEY)
         self.analysis_options = sdk.ImageAnalysisOptions()
-        self.supported_language = {
-            LanguageType.English.value: "en",
-            LanguageType.Chinese.value: "zh-Hans",
-        }
 
     @abstractmethod
     def _parse_result(self, image_file: str, result: sdk.ImageAnalysisResult) -> Dict:
         pass
 
-    def _analyze_image(self, image_file: str, language: str = "en") -> Dict:
+    def _analyze_image(self, image_file: str) -> Dict:
         image_src = detect_file_source(image_file)
         if image_src == FileSource.LOCAL:
             vision_source = sdk.VisionSource(filename=image_file)
@@ -38,8 +34,6 @@ class ImageAnalysisV4Model(BaseModel, ABC):
         else:
             raise ValueError(f"Invalid image source: {image_file}")
         
-        self.analysis_options.language = language
-
         image_analyzer = sdk.ImageAnalyzer(self.service_options, vision_source, self.analysis_options)
         result = image_analyzer.analyze()
 
@@ -47,9 +41,7 @@ class ImageAnalysisV4Model(BaseModel, ABC):
 
     def run(self, *args, **kwargs) -> str:
         image_file = kwargs[ArgsType.IMAGE.value]
-        language = kwargs.get("from_language", LanguageType.English.value)
-        language = self.supported_language[language]
-        return str(self._analyze_image(image_file, language))
+        return str(self._analyze_image(image_file))
 
 
 class ImageCaptionModel(ImageAnalysisV4Model):

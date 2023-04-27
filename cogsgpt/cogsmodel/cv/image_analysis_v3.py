@@ -9,7 +9,7 @@ from azure.cognitiveservices.vision.computervision.models import VisualFeatureTy
 from msrest.authentication import CognitiveServicesCredentials
 
 from cogsgpt.cogsmodel import BaseModel
-from cogsgpt.schema import ArgsType, FileSource, LanguageType
+from cogsgpt.schema import ArgsType, FileSource
 from cogsgpt.utils import detect_file_source
 from cogsgpt.cogsmodel.cv.utils import draw_rectangles
 
@@ -23,27 +23,21 @@ class ImageAnalysisV3Model(BaseModel, ABC):
         self.client = ComputerVisionClient(COGS_ENDPOINT, CognitiveServicesCredentials(COGS_KEY))
         self.image_features = []
         self.image_details = []
-        self.supported_language = {
-            LanguageType.English.value: "en",
-            LanguageType.Chinese.value: "zh-Hans",
-        }
 
     @abstractmethod
     def _parse_result(self, image_file: str, result: ImageAnalysis) -> Dict:
         pass
 
-    def _analyze_image(self, image_file: str, language: str = "en") -> Dict:
+    def _analyze_image(self, image_file: str) -> Dict:
         image_src = detect_file_source(image_file)
         if image_src == FileSource.LOCAL:
             result = self.client.analyze_image_in_stream(open(image_file, "rb"),
                                                          visual_features=self.image_features,
-                                                         details=self.image_details,
-                                                         language=language)
+                                                         details=self.image_details)
         elif image_src == FileSource.REMOTE:
             result = self.client.analyze_image(image_file,
                                                visual_features=self.image_features,
-                                               details=self.image_details,
-                                               language=language)
+                                               details=self.image_details)
         else:
             raise ValueError(f"Invalid image source: {image_file}")
         
@@ -51,9 +45,7 @@ class ImageAnalysisV3Model(BaseModel, ABC):
 
     def run(self, *args, **kwargs) -> str:
         image_file = kwargs[ArgsType.IMAGE.value]
-        language = kwargs.get("from_language", LanguageType.English.value)
-        language = self.supported_language[language]
-        return str(self._analyze_image(image_file, language))
+        return str(self._analyze_image(image_file))
 
 
 class ImageCategorizeModel(ImageAnalysisV3Model):

@@ -29,14 +29,14 @@ class TextTranslationModel(BaseModel):
             LanguageType.Chinese.value: "zh-Hans",
         }
 
-    def _translate(self, text: str, from_language: str, to_language: str) -> str:
+    def _translate(self, text: str, src_language: str, tgt_language: str) -> str:
         body = [{
             'text': text
         }]
         params = {
             'api-version': '3.0',
-            'from': from_language,
-            'to': to_language
+            'from': src_language,
+            'to': tgt_language
         }
 
         request = requests.post(self.translate_endpoint, headers=self.headers, params=params, json=body)
@@ -45,6 +45,6 @@ class TextTranslationModel(BaseModel):
 
     def run(self, *args, **kwargs) -> str:
         text = kwargs[ArgsType.TEXT.value]
-        from_language = self.supported_language[kwargs["from_language"]]
-        to_language = self.supported_language[kwargs["to_language"]]
-        return self._translate(text, from_language, to_language)
+        src_language = self.supported_language[kwargs[ArgsType.SRC_LANGUAGE.value]]
+        tgt_language = self.supported_language[kwargs[ArgsType.TGT_LANGUAGE.value]]
+        return self._translate(text, src_language, tgt_language)

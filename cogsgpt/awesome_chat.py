@@ -187,7 +187,7 @@ class CogsGPT():
             history=self.load_context(),
             input=human_input,
             task_metas=self._task_metas,
-            args_type_list=[t.value for t in ArgsType] + ["from_language", "to_language"],
+            args_type_list=[t.value for t in ArgsType],
             supported_language_list=[l.value for l in LanguageType]
         )
 

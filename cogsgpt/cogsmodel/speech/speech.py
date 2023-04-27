@@ -35,7 +35,7 @@ class Text2SpeechModel(BaseModel):
 
     def run(self, *args, **kwargs) -> str:
         text = kwargs[ArgsType.TEXT.value]
-        language = kwargs.get("from_language", LanguageType.English.value)
+        language = kwargs.get(ArgsType.SRC_LANGUAGE.value, LanguageType.English.value)
         language = self.supported_language[language]
         return self._text2speech(text, language)
     
@@ -90,6 +90,6 @@ class Speech2TextModel(BaseModel):
 
     def run(self, *args, **kwargs) -> str:
         audio_file = kwargs[ArgsType.AUDIO.value]
-        language = kwargs.get("from_language", LanguageType.English.value)
+        language = kwargs.get(ArgsType.SRC_LANGUAGE.value, LanguageType.English.value)
         language = self.supported_language[language]
         return self._speech2text(audio_file, language)

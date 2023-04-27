@@ -33,7 +33,7 @@ class BaseSummarizeModel(BaseModel, abc.ABC):
 
     def run(self, *args, **kwargs) -> str:
         text = kwargs[ArgsType.TEXT.value]
-        language = kwargs.get("from_language", LanguageType.English.value)
+        language = kwargs.get(ArgsType.SRC_LANGUAGE.value, LanguageType.English.value)
         language = self.supported_language[language]
         return self._summarize(text, language)
 

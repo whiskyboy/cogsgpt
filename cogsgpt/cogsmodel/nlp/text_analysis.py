@@ -24,7 +24,7 @@ class BaseAnalysisModel(BaseModel, abc.ABC):
         )
 
         self.supported_language = {
-            LanguageType.English.value: "en-us",
+            LanguageType.English.value: "en",
             LanguageType.Chinese.value: "zh-hans",
         }
     
@@ -34,7 +34,7 @@ class BaseAnalysisModel(BaseModel, abc.ABC):
 
     def run(self, *args, **kwargs) -> str:
         text = kwargs[ArgsType.TEXT.value]
-        language = kwargs.get("from_language", LanguageType.English.value)
+        language = kwargs.get(ArgsType.SRC_LANGUAGE.value, LanguageType.English.value)
         language = self.supported_language[language]
         return str(self._analyze(text, language))
 

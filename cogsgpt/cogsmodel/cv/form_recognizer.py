@@ -9,7 +9,7 @@ from azure.ai.formrecognizer import AnalyzeResult, AnalyzedDocument, DocumentFie
 from azure.core.credentials import AzureKeyCredential
 
 from cogsgpt.cogsmodel import BaseModel
-from cogsgpt.schema import ArgsType, FileSource, LanguageType
+from cogsgpt.schema import ArgsType, FileSource
 from cogsgpt.utils import detect_file_source
 
 
@@ -24,11 +24,6 @@ class FromRecognizerBaseModel(BaseModel, ABC):
             credential=AzureKeyCredential(COGS_KEY)
         )
         self.model_id = None
-
-        self.supported_language = {
-            LanguageType.English.value: "en-US",
-            LanguageType.Chinese.value: "zh-Hans",
-        }
 
     def _parse_paragraphs(self, paragraphs: List[DocumentParagraph]) -> List[Dict]:
         result = []
@@ -71,7 +66,7 @@ class FromRecognizerBaseModel(BaseModel, ABC):
     def _parse_result(self, analyze_result: AnalyzeResult) -> Dict:
         pass
 
-    def _analyze_document(self, document_file: str, language: str = "en") -> Dict:
+    def _analyze_document(self, document_file: str) -> Dict:
         if self.model_id is None:
             raise ValueError("Model ID is not set")
 
@@ -79,11 +74,11 @@ class FromRecognizerBaseModel(BaseModel, ABC):
         if document_src == FileSource.LOCAL:
             with open(document_file, "rb") as f:
                 poller = self.document_analysis_client.begin_analyze_document(
-                    model_id=self.model_id, document=f, locale=language
+                    model_id=self.model_id, document=f
                 )
         elif document_src == FileSource.REMOTE:
             poller = self.document_analysis_client.begin_analyze_document_from_url(
-                model_id=self.model_id, document_url=document_file, locale=language
+                model_id=self.model_id, document_url=document_file
             )
         else:
             raise ValueError(f"Invalid document source: {document_file}")
@@ -92,10 +87,8 @@ class FromRecognizerBaseModel(BaseModel, ABC):
         return self._parse_result(result)
 
     def run(self, *args, **kwargs) -> str:
-        document_file = kwargs[ArgsType.IMAGE.value]
-        language = kwargs.get("from_language", LanguageType.English.value)
-        language = self.supported_language[language]
-        return str(self._analyze_document(document_file, language))
+        document_file = kwargs[ArgsType.FILE.value]
+        return str(self._analyze_document(document_file))
 
 
 class FormReadModel(FromRecognizerBaseModel):

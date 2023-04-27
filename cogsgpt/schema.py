@@ -7,6 +7,9 @@ class ArgsType(Enum):
     TEXT = "text"
     IMAGE = "image"
     AUDIO = "audio"
+    FILE = "file"
+    SRC_LANGUAGE = "src_language"
+    TGT_LANGUAGE = "tgt_language"
 
 
 class LanguageType(Enum):
