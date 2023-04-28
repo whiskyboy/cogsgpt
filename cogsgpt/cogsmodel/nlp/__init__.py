@@ -11,3 +11,5 @@ from .text_summarize import AbstractSummarizeModel
 from .text_translation import TextTranslationModel
 
 from .text_generation import TextGenerationModel
+from .text_generation import GenerativeTextSummarizationModel
+from .text_generation import GenerativeTextTranslationModel

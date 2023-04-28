@@ -23,7 +23,7 @@ class TextGenerationModel(BaseModel):
     def _create_prompt(self) -> ChatPromptTemplate:
         human_message_prompt = HumanMessagePromptTemplate(
             prompt=PromptTemplate(
-                template="You are a {{ task_name }} system, the arguments are {{ task_args }}. Just help me do {{ task_name }} and give me the result. The result should focus more on the {{ task_name}} task, no additional notes, and must be in text form without any urls.",
+                template="You are a {{ task_name }} system, the arguments are {{ task_args }}. Just help me do {{ task_name }} and give me the result. The result should focus only on the {{ task_name}} task, no additional notes, and must be in text form without any urls.",
                 input_variables=["task_name", "task_args"],
                 template_format="jinja2",
             )
@@ -40,3 +40,15 @@ class TextGenerationModel(BaseModel):
     def run(self, *args, **kwargs) -> str:
         request = self._format_prompt(**kwargs)
         return self._llm(request).content
+    
+
+class GenerativeTextSummarizationModel(TextGenerationModel):
+    def __init__(self) -> None:
+        super().__init__()
+        self._task_name = "text-summarization"
+
+
+class GenerativeTextTranslationModel(TextGenerationModel):
+    def __init__(self) -> None:
+        super().__init__()
+        self._task_name = "text-translation"

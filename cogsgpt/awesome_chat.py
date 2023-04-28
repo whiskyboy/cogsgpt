@@ -53,10 +53,12 @@ TaskMap = {
     "personally-identifiable-information": PIIModel,
     "sentiment-analysis": SentimentAnalysisModel,
     "language-detection": LanguageDetectionModel,
-    "extract-summarize": ExtractSummarizeModel,
-    "abstract-summarize": AbstractSummarizeModel,
-    "text-translation": TextTranslationModel,
+    # "extract-summarize": ExtractSummarizeModel,
+    # "abstract-summarize": AbstractSummarizeModel,
+    # "text-translation": TextTranslationModel,
     "text-generation": TextGenerationModel,
+    "text-summarization": GenerativeTextSummarizationModel,
+    "text-translation": GenerativeTextTranslationModel,
 }
 
 

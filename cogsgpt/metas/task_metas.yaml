@@ -117,5 +117,12 @@ language-detection: >-
 
 text-generation: >-
   used when you need to generate text from the input text.
-  Typical use cases include but not limited to: text-summarization, text-completion, and text-translation.
   It accepts text as input and text as output.
+
+text-summarization: >-
+  used when you need to summarize a text.
+  It accepts text as input and text as output.
+
+text-translation: >-
+  used when you need to translate a text to another language.
+  It accepts text, src_language and tgt_language as inputs and text as output.
