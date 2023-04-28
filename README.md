@@ -1,7 +1,7 @@
 # CogsGPT
 A multi-modal LLM which integrates ChatGPT with Azure Cognitive Service.
 
-**Now you can go to [CogsGPT on HuggingFace Space](https://huggingface.co/spaces/whiskyboy/CogsGPT) to experice the full capabilities of CogsGPT!!!**
+**Now you can go to [CogsGPT on HuggingFace Space](https://huggingface.co/spaces/whiskyboy/CogsGPT) to experience the full capabilities of CogsGPT!!!**
 
 *If you find this repo useful, please consider giving it a star!*
 
