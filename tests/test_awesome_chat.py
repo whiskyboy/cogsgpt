@@ -12,7 +12,7 @@ if __name__ == "__main__":
         "Describe the content of the image: ./tests/examples/presentation.png",
         "Extract the text from the image: ./tests/examples/handwritten-note.jpg",
         "How many people are there in the image: ./tests/examples/family.png?", 
-        "Select images of dog from the list: [./tests/examples/animal-1.jpg, ./tests/examples/animal-2.jpg, ./tests/examples/animal-1.jpg]",
+        "Select images of dog from the list: [./tests/examples/animal-1.jpg, ./tests/examples/animal-2.jpg, ./tests/examples/animal-3.jpg]",
         "Remove the background of the image: ./tests/examples/wedding.png",
         "Crop a thumbnail for the image: ./tests/examples/wedding.png",
         
