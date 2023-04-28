@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import json
 import os
-from typing import Dict, List
 import pkg_resources
+import re
+from typing import Dict, List
 import yaml
 
 from langchain import PromptTemplate
@@ -201,10 +202,13 @@ class CogsGPT():
         """
         Collect the results of the dependencies tasks.
         """
+        dep_pattern = r'<GENERATED>-(\d+)'
         for arg_name, arg_value in task_args.items():
-            if "<GENERATED>-" in arg_value:
-                dep_id = int(arg_value.split("-")[1])
-                task_args[arg_name] = task_list[dep_id].get("result", "")
+            matches = re.findall(dep_pattern, arg_value)
+            for match in matches:
+                dep_id = int(match)
+                dep_result = task_list[dep_id].get("result", "")
+                task_args[arg_name] = task_args[arg_name].replace(f"<GENERATED>-{dep_id}", dep_result)
         return task_args
 
     def save_context(self, human_input: str, ai_response: str) -> None:
@@ -265,8 +269,6 @@ class CogsGPT():
                 else:
                     task_model = TaskMap[task_name]()
                     task["args"] = self._collect_deps_results(task["args"], task_list)
-                    if task_name == "text-generation": # We use ChatGPT to do this task
-                        task["args"]["human_input"] = human_input # add human input arg to text-generation task
                     logger.debug(f"[Execute Task] Task{i} {task_name} args: {task['args']}")
                     task["result"] = task_model.run(**task["args"])
                     logger.info(f"[Execute Task] Task{i} {task_name} result: {task['result']}")

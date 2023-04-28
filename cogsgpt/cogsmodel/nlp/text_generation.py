@@ -23,8 +23,8 @@ class TextGenerationModel(BaseModel):
     def _create_prompt(self) -> ChatPromptTemplate:
         human_message_prompt = HumanMessagePromptTemplate(
             prompt=PromptTemplate(
-                template="The user request [ {{human_input}} ] contains a {{ task_name }} task. Now you are a {{ task_name }} system, the arguments are {{ task_args }}. Just help me do {{ task_name }} and give me the result. The result should focus more on the {{ task_name}} task, no additional notes, and must be in text form without any urls.",
-                input_variables=["human_input", "task_name", "task_args"],
+                template="You are a {{ task_name }} system, the arguments are {{ task_args }}. Just help me do {{ task_name }} and give me the result. The result should focus more on the {{ task_name}} task, no additional notes, and must be in text form without any urls.",
+                input_variables=["task_name", "task_args"],
                 template_format="jinja2",
             )
         )
@@ -33,7 +33,6 @@ class TextGenerationModel(BaseModel):
 
     def _format_prompt(self, **kwargs) -> List[BaseMessage]:
         return self._prompt.format_prompt(
-            human_input=kwargs["human_input"],
             task_name=self._task_name,
             task_args=kwargs
         ).to_messages()
