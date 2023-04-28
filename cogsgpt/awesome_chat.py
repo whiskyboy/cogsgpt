@@ -251,12 +251,11 @@ class CogsGPT():
 
         return json.loads(response)
 
-    def execute_tasks(self, human_input: str, task_list: List[Dict]) -> List[Dict]:
+    def execute_tasks(self, task_list: List[Dict]) -> List[Dict]:
         """
         Execute a series of Azure Cognitive Service tasks.
 
         Args:
-            human_input (str): User input.
             task_list (List[Dict]): A list of Azure Cognitive Service tasks.
 
         Returns:
@@ -317,7 +316,7 @@ class CogsGPT():
 
         # 2. execute tasks
         logger.info("[CogsGPT] Executing tasks...")
-        task_result_list = self.execute_tasks(human_input, task_list)
+        task_result_list = self.execute_tasks(task_list)
 
         # 3. generate response
         logger.info("[CogsGPT] Generating final response...")
