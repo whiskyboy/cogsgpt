@@ -130,6 +130,7 @@ with gr.Blocks(css=css) as demo:
 
     gr.Markdown("<h1><center>CogsGPT</center></h1>")
     gr.Markdown("<p align='center' style='font-size: 20px;'>A multi-modal LLM integrated ChatGPT with Azure Cognitive Service, inspired by <a href='https://huggingface.co/spaces/microsoft/HuggingGPT'>HuggingGPT</a>.</p>")
+    gr.Markdown("<p align='center' style='font-size: 20px;'>See our <a href='https://github.com/whiskyboy/cogsgpt'>Project</a> for more details.</p>")
 
     with gr.Row():
         with gr.Column(scale=0.85):
@@ -143,7 +144,6 @@ with gr.Blocks(css=css) as demo:
             set_key_btn = gr.Button("Submit")
 
     # Ouput Row
-    gr.Markdown("<h3>Output</h3>")
     with gr.Row():
         with gr.Column(scale=0.6):
             chatbot = gr.Chatbot([], label="Chatbot").style(height=500)
@@ -152,7 +152,6 @@ with gr.Blocks(css=css) as demo:
             task_output = gr.JSON(label="Tasks", elem_classes="json")
 
     # Input Row
-    gr.Markdown("<h3>Input</h3>")
     with gr.Row():
         with gr.Column(scale=0.85):
             text_input = gr.Textbox(lines=1, show_label=False, interactive=True,
