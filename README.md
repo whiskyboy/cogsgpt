@@ -1,91 +1,81 @@
 # CogsGPT
-A multi-modal LLM integrated ChatGPT with Azure Cognitive Service, inspired by HuggingGPT.
+A multi-modal LLM which integrates ChatGPT with Azure Cognitive Service.
+
+**Now you can go to [CogsGPT on HuggingFace Space](https://huggingface.co/spaces/whiskyboy/CogsGPT) to experice the full capabilities of CogsGPT!!!**
+
+*If you find this repo useful, please consider giving it a star!*
+
+![](./docs/imgs/CogsGPT-demo.png)
 
 ## Overview
-This project is inspired by [HuggingGPT](https://github.com/microsoft/JARVIS). As the name CogsGPT suggests, it utilizes the ChatGPT model as the language center and integrates with Azure Cognitive Services to achieve multimodal capabilities to some extent.
 
-Typical user cases include:
+### What is Azure Cognitive Service
+*(Answered by ChatGPT)*
 
-- Information extraction: Extract the main information from a doc or an image.
-- Image translation: Translate the text in an image to another language.
-- Speech summarization: Summarize a long speech into a short audio clip while retaining the main information.
-- Speech translation: Translate input speech into another language.
+> Azure Cognitive Services is a collection of pre-built machine learning models that developers can use to add intelligent features to their applications without requiring extensive knowledge of data science or machine learning. These services include vision, speech, language, and decision-making capabilities, such as text translation, speech recognition, image recognition, and sentiment analysis. Azure Cognitive Services allows developers to quickly and easily incorporate advanced AI features into their applications, reducing the time and cost of building such features from scratch. It also provides enterprise-level security, scalability, and availability for applications that require high levels of reliability and performance.
 
-There are more user cases waiting for your exploration!
+### What is CogsGPT
+CogsGPT is a multi-modal LLM which utilizes the ChatGPT model as the controller and integrates with Azure Cognitive Services as collaborative executors to achieve multimodal capabilities to some extent. Using CogsGPT, you can simply access Azure Cognitive Services via natural language to process image or audio inputs, without any knowledge of the underlying APIs. You can even ask CogsGPT to perform some complex tasks such as summarizing a long speech into a short audio clip while retaining the main information. CogsGPT will automatically decide which services to use and how to use them to achieve the goal.
 
-Here is a demo of creating a poem based on an image and converting it into speech in another language.
+### How does it work
 
-![demo](./docs/demo.gif)
+The workflow of CogsGPT consists of three stages:
+1. Task Planing Stage: In this stage, CogsGPT will leverage ChatGPT to first think of the user's request carefully, and then parse it into a sequence of Cognitive Service tasks which have the most potentials to solve user's request. Each task may depend on the execution result of previous tasks.
+2. Task Execution Stage: In this stage, CogsGPT will execute the tasks one by one. The execution result will be stored for future reference.
+3. Response Generation Stage: In this stage, CogsGPT will leverage ChatGPT again to generate a final response to user's request based on the execution results of the second stage. The response may be a text, an image, an audio, or a combination of them.
 
 ## Getting Started
 
 ### Prerequisites
 
-#### OpenAI Requirements
+- Python 3.8+
+- OpenAI API key
+- Azure Cognitive Multi-Service deployment ([How to deploy](https://learn.microsoft.com/en-us/azure/cognitive-services/cognitive-services-apis-create-account?tabs=multiservice%2Canomaly-detector%2Clanguage-service%2Ccomputer-vision%2Clinux#create-a-new-azure-cognitive-services-resource))
+- Set the following environment variables:
+    ```bash
+    # OpenAI
+    export OPENAI_API_TYPE="openai"
+    export OPENAI_API_KEY="<OpenAI API Key>"
 
-First, you need to register an [OpenAI](https://platform.openai.com/) account or deploy an [Azure OpenAI Service](https://azure.microsoft.com/en-us/products/cognitive-services/openai-service). Follow the official documents to obtain the API key and other resources. 
-
-If you want to use OpenAI API, you need to set these environment variables:
-```bash
-export OPENAI_API_TYPE="openai"
-export OPENAI_API_KEY="<OpenAI API Key>"
-```
-
-If you want to use Azure OpenAI Service, you need to set these environment variables:
-```bash
-export OPENAI_API_TYPE="azure"
-export OPENAI_API_BASE="<Azure OpenAI Service Endpoint>"
-export OPENAI_API_KEY="<Azure OpenAI Service Key>"
-```
-
-#### Azure Cognitive Service Requirements
-
-Next, you need also to deploy an [Azure Cognitive Service](https://azure.microsoft.com/en-us/products/cognitive-services/). Follow the official documents to obtain the deployment key and other resources, and set these environment variables:
-```bash
-export COGS_ENDPOINT="<Azure Cognitive Service Endpoint>"
-export COGS_KEY="<Azure Cognitive Service Key>"
-export COGS_REGION="<Azure Cognitive Service Region>"
-```
-
-#### Platform Requirements
-
-At last, follow the [instruction](https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/quickstarts/setup-platform?tabs=windows%2Cubuntu%2Cdotnet%2Cjre%2Cmaven%2Cnodejs%2Cmac%2Cpypi&pivots=programming-language-python#platform-requirements) here to check your platfrom requirments (which is necessary to use Azure Speech SDK for Python)
+    # Azure Cognitive Service
+    export COGS_ENDPOINT="<Azure Cognitive Service Endpoint>"
+    export COGS_KEY="<Azure Cognitive Service Key>"
+    export COGS_REGION="<Azure Cognitive Service Region>"
+    ```
 
 ### Quick Install
 
-You can now install CogsGPT with pip:
 ```bash
 pip install cogsgpt
 ```
 
 ### Usage
 
-You can use CogsGPT in your own application to process image or audio inputs within several lines of codes:
+You can use CogsGPT in your own application to process image or audio inputs within three lines of codes:
 ```python
 from cogsgpt import CogsGPT
 
-if os.environ["OPENAI_API_TYPE"] == "openai":
-    agent = CogsGPT(model_name="gpt-3.5-turbo")
-elif os.environ["OPENAI_API_TYPE"] == "azure":
-    agent = CogsGPT(deployment_name="<YOUR DEPLOYMENT NAME>", openai_api_version="<YOUR DEPLOYMENT VERSION>")
-
+agent = CogsGPT(model_name="gpt-3.5-turbo")
 agent.chat("What's the content in a.jpg?")
 ```
 
-Or you can experience an interactive console application with the following command:
-```bash
-python ./tests/test_awesome_chat.py
-```
+For more details on the usage, please refer to the [API Reference](https://whiskyboy.github.io/cogsgpt/awesome_chat.html)
 
-### Gradio App
+### Gradio Demo
 
-The Gradio demo is now hosted on [Hugging Face Space](https://huggingface.co/spaces/whiskyboy/CogsGPT). You can also run the following commands to start the demo locally:
+The CogsGPT Gradio demo is now available on [HuggingFace Space](https://huggingface.co/spaces/whiskyboy/CogsGPT)! To make it easier and more affordable to try out the capabilities of CogsGPT, we are offering an Azure Cognitive Service resource for FREE to use in the demo! All you need is an OpenAI API key to get started chatting with CogsGPT!
+
+You can also use the following commands to run the demo locally with your own Azure Cognitive Service (Don't forget to set the environment variables first!):
 ```bash
 pip install gradio
 python app.py
 ```
 
-Now open your favorite browser and ENJOY THE CHAT!
+Now open your favorite browser and ENJOY YOUR CHAT!
+
+## Acknowledgments
+
+This project is inspired by [HuggingGPT](https://github.com/microsoft/JARVIS), and is built on top of [LangChain](https://github.com/hwchase17/langchain).
 
 ## License
 
