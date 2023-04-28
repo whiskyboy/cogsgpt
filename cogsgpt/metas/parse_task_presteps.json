@@ -46,10 +46,10 @@
 
     {
         "role":"user",
-        "content":"Please summarize the content of the audio: d.wav and read it out for me."
+        "content":"Please translate the content in the audio: d.wav to Chinese and then read it out for me."
     },
     {
         "role":"assistant",
-        "content":"[{\"task\": \"speech2text\", \"id\": 0, \"dep\": [-1], \"args\": {\"audio\": \"d.wav\", \"src_language\": \"English\"}}, {\"task\": \"text-summarization\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"TLDR: <GENERATED>-0\"}}, {\"task\": \"text2speech\", \"id\": 2, \"dep\": [1], \"args\": {\"text\": \"<GENERATED>-1\", \"src_language\": \"English\"}}]"
+        "content":"[{\"task\": \"speech2text\", \"id\": 0, \"dep\": [-1], \"args\": {\"audio\": \"d.wav\", \"src_language\": \"English\"}}, {\"task\": \"text-translation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\", \"src_language\": \"English\", \"tgt_language\": \"Chinese\"}}, {\"task\": \"text2speech\", \"id\": 2, \"dep\": [1], \"args\": {\"text\": \"<GENERATED>-1\", \"src_language\": \"Chinese\"}}]"
     }
 ]

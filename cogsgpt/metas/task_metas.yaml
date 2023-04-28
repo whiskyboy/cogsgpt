@@ -36,6 +36,7 @@ image-caption: >-
 
 object-detection: >-
   used when you need to detect objects in an image.
+  DO NOT use this task if you need to detect people, face, or brand in an image.
   It accepts an image as input and text as output.
 
 image-tagging: >-
