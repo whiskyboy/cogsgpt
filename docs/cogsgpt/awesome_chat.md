@@ -37,11 +37,10 @@ Classes
         Returns:
             str: Final response.
 
-    `execute_tasks(self, human_input: str, task_list: List[Dict]) ‑> List[Dict]`
+    `execute_tasks(self, task_list: List[Dict]) ‑> List[Dict]`
     :   Execute a series of Azure Cognitive Service tasks.
         
         Args:
-            human_input (str): User input.
             task_list (List[Dict]): A list of Azure Cognitive Service tasks.
         
         Returns:

@@ -1,10 +1,50 @@
-Module cogsgpt.cogsmodel.nlp.text_analysis
-==========================================
+Module cogsgpt.cogsmodel.cv.image_analysis_v3
+=============================================
 
 Classes
 -------
 
-`BaseAnalysisModel()`
+`AdultContentDetectionModel()`
+:   Helper class that provides a standard way to create an ABC using
+    inheritance.
+
+    ### Ancestors (in MRO)
+
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.ImageAnalysisV3Model
+    * cogsgpt.cogsmodel.base_model.BaseModel
+    * abc.ABC
+
+`BrandDetectionModel()`
+:   Helper class that provides a standard way to create an ABC using
+    inheritance.
+
+    ### Ancestors (in MRO)
+
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.ImageAnalysisV3Model
+    * cogsgpt.cogsmodel.base_model.BaseModel
+    * abc.ABC
+
+`ColorSchemeDetectionModel()`
+:   Helper class that provides a standard way to create an ABC using
+    inheritance.
+
+    ### Ancestors (in MRO)
+
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.ImageAnalysisV3Model
+    * cogsgpt.cogsmodel.base_model.BaseModel
+    * abc.ABC
+
+`FaceDetectionModel()`
+:   Helper class that provides a standard way to create an ABC using
+    inheritance.
+
+    ### Ancestors (in MRO)
+
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.ImageAnalysisV3Model
+    * cogsgpt.cogsmodel.base_model.BaseModel
+    * abc.ABC
+
+`ImageAnalysisV3Model()`
 :   Helper class that provides a standard way to create an ABC using
     inheritance.
 
@@ -15,74 +55,34 @@ Classes
 
     ### Descendants
 
-    * cogsgpt.cogsmodel.nlp.text_analysis.EntityLinkingModel
-    * cogsgpt.cogsmodel.nlp.text_analysis.EntityRecognitionModel
-    * cogsgpt.cogsmodel.nlp.text_analysis.KeyPhraseModel
-    * cogsgpt.cogsmodel.nlp.text_analysis.LanguageDetectionModel
-    * cogsgpt.cogsmodel.nlp.text_analysis.PIIModel
-    * cogsgpt.cogsmodel.nlp.text_analysis.SentimentAnalysisModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.AdultContentDetectionModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.BrandDetectionModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.ColorSchemeDetectionModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.FaceDetectionModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.ImageCategorizeModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.ImageTypeDetectionModel
 
     ### Methods
 
     `run(self, *args, **kwargs) ‑> str`
     :
 
-`EntityLinkingModel()`
+`ImageCategorizeModel()`
 :   Helper class that provides a standard way to create an ABC using
     inheritance.
 
     ### Ancestors (in MRO)
 
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.ImageAnalysisV3Model
     * cogsgpt.cogsmodel.base_model.BaseModel
     * abc.ABC
 
-`EntityRecognitionModel()`
+`ImageTypeDetectionModel()`
 :   Helper class that provides a standard way to create an ABC using
     inheritance.
 
     ### Ancestors (in MRO)
 
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
-    * cogsgpt.cogsmodel.base_model.BaseModel
-    * abc.ABC
-
-`KeyPhraseModel()`
-:   Helper class that provides a standard way to create an ABC using
-    inheritance.
-
-    ### Ancestors (in MRO)
-
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
-    * cogsgpt.cogsmodel.base_model.BaseModel
-    * abc.ABC
-
-`LanguageDetectionModel()`
-:   Helper class that provides a standard way to create an ABC using
-    inheritance.
-
-    ### Ancestors (in MRO)
-
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
-    * cogsgpt.cogsmodel.base_model.BaseModel
-    * abc.ABC
-
-`PIIModel()`
-:   Helper class that provides a standard way to create an ABC using
-    inheritance.
-
-    ### Ancestors (in MRO)
-
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
-    * cogsgpt.cogsmodel.base_model.BaseModel
-    * abc.ABC
-
-`SentimentAnalysisModel()`
-:   Helper class that provides a standard way to create an ABC using
-    inheritance.
-
-    ### Ancestors (in MRO)
-
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.ImageAnalysisV3Model
     * cogsgpt.cogsmodel.base_model.BaseModel
     * abc.ABC

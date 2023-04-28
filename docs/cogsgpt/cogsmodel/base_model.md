@@ -14,8 +14,10 @@ Classes
 
     ### Descendants
 
-    * cogsgpt.cogsmodel.cv.image_analysis.ImageAnalysisModel
-    * cogsgpt.cogsmodel.cv.ocr.FormRecognizerModel
+    * cogsgpt.cogsmodel.cv.background_remover.BackgroundRemover
+    * cogsgpt.cogsmodel.cv.form_recognizer.FromRecognizerBaseModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v3.ImageAnalysisV3Model
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.ImageAnalysisV4Model
     * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
     * cogsgpt.cogsmodel.nlp.text_generation.TextGenerationModel
     * cogsgpt.cogsmodel.nlp.text_summarize.BaseSummarizeModel

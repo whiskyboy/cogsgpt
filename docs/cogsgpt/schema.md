@@ -16,10 +16,19 @@ Classes
     `AUDIO`
     :
 
+    `FILE`
+    :
+
     `IMAGE`
     :
 
+    `SRC_LANGUAGE`
+    :
+
     `TEXT`
+    :
+
+    `TGT_LANGUAGE`
     :
 
 `FileSource(value, names=None, *, module=None, qualname=None, type=None, start=1)`

@@ -1,10 +1,10 @@
-Module cogsgpt.cogsmodel.nlp.text_analysis
-==========================================
+Module cogsgpt.cogsmodel.cv.image_analysis_v4
+=============================================
 
 Classes
 -------
 
-`BaseAnalysisModel()`
+`ImageAnalysisV4Model()`
 :   Helper class that provides a standard way to create an ABC using
     inheritance.
 
@@ -15,74 +15,74 @@ Classes
 
     ### Descendants
 
-    * cogsgpt.cogsmodel.nlp.text_analysis.EntityLinkingModel
-    * cogsgpt.cogsmodel.nlp.text_analysis.EntityRecognitionModel
-    * cogsgpt.cogsmodel.nlp.text_analysis.KeyPhraseModel
-    * cogsgpt.cogsmodel.nlp.text_analysis.LanguageDetectionModel
-    * cogsgpt.cogsmodel.nlp.text_analysis.PIIModel
-    * cogsgpt.cogsmodel.nlp.text_analysis.SentimentAnalysisModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.ImageCaptionModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.ImageTaggingModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.ImageTextModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.ObjectDetectionModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.PeopleDetectionModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.SmartCropModel
 
     ### Methods
 
     `run(self, *args, **kwargs) ‑> str`
     :
 
-`EntityLinkingModel()`
+`ImageCaptionModel()`
 :   Helper class that provides a standard way to create an ABC using
     inheritance.
 
     ### Ancestors (in MRO)
 
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.ImageAnalysisV4Model
     * cogsgpt.cogsmodel.base_model.BaseModel
     * abc.ABC
 
-`EntityRecognitionModel()`
+`ImageTaggingModel()`
 :   Helper class that provides a standard way to create an ABC using
     inheritance.
 
     ### Ancestors (in MRO)
 
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.ImageAnalysisV4Model
     * cogsgpt.cogsmodel.base_model.BaseModel
     * abc.ABC
 
-`KeyPhraseModel()`
+`ImageTextModel()`
 :   Helper class that provides a standard way to create an ABC using
     inheritance.
 
     ### Ancestors (in MRO)
 
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.ImageAnalysisV4Model
     * cogsgpt.cogsmodel.base_model.BaseModel
     * abc.ABC
 
-`LanguageDetectionModel()`
+`ObjectDetectionModel()`
 :   Helper class that provides a standard way to create an ABC using
     inheritance.
 
     ### Ancestors (in MRO)
 
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.ImageAnalysisV4Model
     * cogsgpt.cogsmodel.base_model.BaseModel
     * abc.ABC
 
-`PIIModel()`
+`PeopleDetectionModel()`
 :   Helper class that provides a standard way to create an ABC using
     inheritance.
 
     ### Ancestors (in MRO)
 
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.ImageAnalysisV4Model
     * cogsgpt.cogsmodel.base_model.BaseModel
     * abc.ABC
 
-`SentimentAnalysisModel()`
+`SmartCropModel()`
 :   Helper class that provides a standard way to create an ABC using
     inheritance.
 
     ### Ancestors (in MRO)
 
-    * cogsgpt.cogsmodel.nlp.text_analysis.BaseAnalysisModel
+    * cogsgpt.cogsmodel.cv.image_analysis_v4.ImageAnalysisV4Model
     * cogsgpt.cogsmodel.base_model.BaseModel
     * abc.ABC
