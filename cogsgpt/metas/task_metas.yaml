@@ -3,11 +3,11 @@ form-recognizer: >-
   It accepts a file as input and text as output.
 
 form-layout: >-
-  used when you need to extract structure text data like tables, titles or footnotes from a file.
+  used when you need to extract table data from a file.
   It accepts a file as input and text as output.
 
 form-key-value: >-
-  used when you need to extract key-value pairs text data from a file.
+  used when you need to extract key-value data from a file.
   It accepts a file as input and text as output.
 
 w2-tax-form: >-

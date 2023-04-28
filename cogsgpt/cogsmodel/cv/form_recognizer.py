@@ -109,7 +109,7 @@ class FormLayoutModel(FromRecognizerBaseModel):
 
     def _parse_result(self, analyze_result: AnalyzeResult) -> Dict:
         return {
-            "paragraphs": self._parse_paragraphs(analyze_result.paragraphs),
+            # "paragraphs": self._parse_paragraphs(analyze_result.paragraphs),
             "tables": self._parse_tables(analyze_result.tables)
         }
 
@@ -122,7 +122,7 @@ class FormKeyValueModel(FromRecognizerBaseModel):
     def _parse_result(self, analyze_result: AnalyzeResult) -> Dict:
         return {
             "key_value_pairs": self._parse_kv_pairs(analyze_result.key_value_pairs),
-            "tables": self._parse_tables(analyze_result.tables)
+            # "tables": self._parse_tables(analyze_result.tables)
         }
 
 
