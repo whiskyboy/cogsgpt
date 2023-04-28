@@ -1,37 +1,55 @@
 [
     {
         "role":"user",
-        "content":"Extract the employee name from a.pdf"
+        "content":"Extract the textual content from the image file: a.png"
     },
     {
         "role":"assistant",
-        "content":"[{\"task\": \"form-recognizer\", \"id\": 0, \"dep\": [-1], \"args\": {\"file\": \"a.pdf\"}}]"
+        "content":"[{\"task\": \"form-recognizer\", \"id\": 0, \"dep\": [-1], \"args\": {\"file\": \"a.png\"}}, {\"task\": \"OCR\", \"id\": 1, \"dep\": [-1], \"args\": {\"image\": \"a.png\"}}]"
     },
 
     {
         "role":"user",
-        "content":"Convert the text 'how are you' to speech"
+        "content":"Here is an invoice file: b.pdf. Please list all the items and their prices in the invoice."
     },
     {
         "role":"assistant",
-        "content":"[{\"task\": \"text2speech\", \"id\": 0, \"dep\": [-1], \"args\": {\"text\": \"how are you\", \"src_language\": \"english\"}}]"
+        "content":"[{\"task\": \"invoice-form\", \"id\": 0, \"dep\": [-1], \"args\": {\"file\": \"b.pdf\"}}]"
     },
 
     {
         "role":"user",
-        "content":"Read out the summary of the text in a.png?"
+        "content":"How many sheep are there in the images: c.jpg, d.jpg, and e.jpg?"
     },
     {
         "role":"assistant",
-        "content":"[{\"task\": \"OCR\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"a.png\"}}, {\"task\": \"text-generation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\"}}, {\"task\": \"text2speech\", \"id\": 2, \"dep\": [1], \"args\": {\"text\": \"<GENERATED>-1\", \"src_language\": \"english\"}}]"
+        "content":"[{\"task\": \"object-detection\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"c.jpg\"}}, {\"task\": \"object-detection\", \"id\": 1, \"dep\": [-1], \"args\": {\"image\": \"d.jpg\"}}, {\"task\": \"object-detection\", \"id\": 2, \"dep\": [-1], \"args\": {\"image\": \"e.jpg\"}}, {\"task\": \"text-generation\", \"id\": 3, \"dep\": [0,1,2], \"args\": {\"image\": \"<GENERATED>-0,<GENERATED>-1,<GENERATED>-2\"}}]"
     },
-    
+
     {
         "role":"user",
-        "content":"Write a story based on the content of the image b.png, and then speak it out."
+        "content":"请提取出下面这段话中提到的实体：微软总裁布拉德·史密斯（Brad Smith）周六表示，中国的研究机构和公司将成为ChatGPT的主要竞争对手。"
     },
     {
         "role":"assistant",
-        "content":"[{\"task\": \"image-caption\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"b.png\"}}, {\"task\": \"text-generation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\"}}, {\"task\": \"text2speech\", \"id\": 2, \"dep\": [1], \"args\": {\"text\": \"<GENERATED>-1\", \"src_language\": \"english\"}}]"
+        "content":"[{\"task\": \"entity-recognition\", \"id\": 0, \"dep\": [-1], \"args\": {\"text\": \"微软总裁布拉德·史密斯（Brad Smith）周六表示，中国的研究机构和公司将成为ChatGPT的主要竞争对手。\", \"src_language\": \"Chinese\"}}]"
+    },
+
+    {
+        "role":"user",
+        "content":"Given a picture f.png, please write a poem based on the description of the picture."
+    },
+    {
+        "role":"assistant",
+        "content":"[{\"task\": \"image-caption\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"f.png\"}}, {\"task\": \"text-generation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\"}}]"
+    },
+
+    {
+        "role":"user",
+        "content":"Please summarize the content of the audio: d.wav and read it out for me."
+    },
+    {
+        "role":"assistant",
+        "content":"[{\"task\": \"speech2text\", \"id\": 0, \"dep\": [-1], \"args\": {\"audio\": \"d.wav\", \"src_language\": \"English\"}}, {\"task\": \"text-generation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"<GENERATED>-0\"}}, {\"task\": \"text2speech\", \"id\": 2, \"dep\": [1], \"args\": {\"text\": \"<GENERATED>-1\", \"src_language\": \"English\"}}]"
     }
 ]

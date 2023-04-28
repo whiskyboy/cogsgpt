@@ -1,121 +1,121 @@
 form-recognizer: >-
-  used when you need to extract text data from a form.
-  It accepts a file type argument as input.
+  used when you need to extract text data from a file.
+  It accepts a file as input and text as output.
 
 form-layout: >-
-  used when you need to extract structure text data like tables and paragraphs from a form.
-  It accepts a file type argument as input.
+  used when you need to extract structure text data like tables, titles or footnotes from a file.
+  It accepts a file as input and text as output.
 
 form-key-value: >-
-  used when you need to extract key-value pairs text data from a form.
-  It accepts a file type argument as input.
+  used when you need to extract key-value pairs text data from a file.
+  It accepts a file as input and text as output.
 
 w2-tax-form: >-
-  used when you need to extract structure text data from a W-2 tax form.
-  It accepts a file type argument as input.
+  used when you need to extract structure text data from a W-2 tax file.
+  It accepts a file as input and text as output.
 
 invoice-form: >-
-  used when you need to extract structure text data from an invoice form.
-  It accepts a file type argument as input.
+  used when you need to extract structure text data from an invoice file.
+  It accepts a file as input and text as output.
 
 receipt-form: >-
-  used when you need to extract structure text data from a receipt form.
-  It accepts a file type argument as input.
+  used when you need to extract structure text data from a receipt file.
+  It accepts a file as input and text as output.
 
 id-document-form: >-
-  used when you need to extract structure text data from an ID document form.
-  It accepts a file type argument as input.
+  used when you need to extract structure text data from an ID document file.
+  It accepts a file as input and text as output.
 
 business-card-form: >-
-  used when you need to extract structure text data from a business card form.
-  It accepts a file type argument as input.
+  used when you need to extract structure text data from a business card file.
+  It accepts a file as input and text as output.
 
 image-caption: >-
   used when you need to generate a descriptive caption for an image.
-  It accepts an image type argument as input.
+  It accepts an image as input and text as output.
 
 object-detection: >-
   used when you need to detect objects in an image.
-  It accepts an image type argument as input.
+  It accepts an image as input and text as output.
 
 image-tagging: >-
   used when you need to generate tags for an image.
-  It accepts an image type argument as input.
+  It accepts an image as input and text as output.
 
 people-detection: >-
   used when you need to detect people in an image.
-  It accepts an image type argument as input.
+  It accepts an image as input and another image as output.
 
 smart-crop: >-
   used when you need to crop an image to a thumbnail that focuses on the most important area of the image.
-  It accepts an image type argument as input.
+  It accepts an image as input and another image as output.
 
 OCR: >-
   used when you need to extract text data from an image.
-  It accepts an image type argument as input.
+  It accepts an image as input and text as output.
 
 image-categorize: >-
   used when you need to categorize an image to a predefined category.
   Especially useful for identifying the landmarks or the celebrities in an image.
-  It accepts an image type argument as input.
+  It accepts an image as input and text as output.
 
 brand-detection: >-
   used when you need to detect brands in an image.
-  It accepts an image type argument as input.
+  It accepts an image as input and text as output.
 
 face-detection: >-
   used when you need to detect faces in an image.
-  It accepts an image type argument as input.
+  It accepts an image as input and another image as output.
 
 adult-content-detection: >-
   used when you need to detect if an image contains adult content.
-  It accepts an image type argument as input.
+  It accepts an image as input and text as output.
 
 color-scheme-detection: >-
   used when you need to detect the color scheme of an image.
-  It accepts an image type argument as input.
+  It accepts an image as input and text as output.
 
 image-type-detection: >-
   used when you need to detect the artistic type of an image.
-  It accepts an image type argument as input.
+  It accepts an image as input and text as output.
 
 background-remover: >-
   used when you need to remove the background of an image.
-  It accepts an image type argument as input.
+  It accepts an image as input and another image as output.
 
 text2speech: >-
   used when you need to convert text to speech.
-  It accepts a text type argument and a src_language argument as input.
+  It accepts text and src_language as inputs and an audio as output.
 
 speech2text: >-
   used when you need to convert speech to text.
-  It accepts an audio type argument and a src_language argument as input.
+  It accepts an audio and src_language as inputs and text as output.
 
 key-phrase: >-
   used when you need to extract key phrases from a text.
-  It accepts a text type argument and a src_language argument as input.
+  It accepts text and src_language as inputs and text as output.
 
 entity-linking: >-
   used when you need to identify entities from a text and link them to a knowledge base such as Wikipedia.
-  It accepts a text type argument and a src_language argument as input.
+  It accepts text and src_language as inputs and text as output.
 
 entity-recognition: >-
   used when you need to extract entities from a text.
-  It accepts a text type argument and a src_language argument as input.
+  It accepts text and src_language as inputs and text as output.
 
 personally-identifiable-information: >-
   used when you need to extract personally identifiable information such as social security numbers, phone numbers, and email addresses from a text.
-  It accepts a text type argument and a src_language argument as input.
+  It accepts text and src_language as inputs and text as output.
 
 sentiment-analysis: >-
   used when you need to analyze the sentiment of a text.
-  It accepts a text type argument and a src_language argument as input.
+  It accepts text and src_language as inputs and text as output.
 
 language-detection: >-
   used when you need to detect the language type of a text.
-  It accepts a text type argument as input.
+  It accepts text as input and text as output.
 
 text-generation: >-
   used when you need to generate text from the input text.
   Typical use cases include but not limited to: text-summarization, text-completion, and text-translation.
-  It accepts a text type argument as input.
+  It accepts text as input and text as output.

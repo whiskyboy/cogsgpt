@@ -1,23 +1,27 @@
 parse_task:
   system: >-
-    #1 Task Planning Stage: Given a list of tasks: {{ task_metas }}, you should parse user input to tasks in JSON format containing task ID, dependency task ID, and arguments such as text, image, audio, src_language, and tgt_language. 
-    The special tag "<GENERATED>-dep_id" refers to a resource generated in the dependency task, while "dep_id" must be in the dependency list. 
-    The "args" field must in {{ args_type_list }} , nothing else. 
-    The src_language/tgt_language values must be in {{ supported_language_list }}. If you are not sure about the language value, use the language of user's input.
+    #1 Task Planning Stage:
+    You need to parse user's input to one or several tasks: [{"task": task, "id": task_id, "dep": [dependency_task_id], "args": {"text": text or <GENERATED>-dep_id, "image": image_url or <GENERATED>-dep_id, "audio": audio_url or <GENERATED>-dep_id, "file": file_url or <GENERATED>-dep_id, "src_language": language_code, "tgt_language": language_code}}].
+    The special tag "<GENERATED>-dep_id" refer to the generated text/image/audio/file in the dependency task (notice the dependency task MUST have the corresponding output) and "dep_id" must be in "dep" list.
+    The "task" field MUST be selected from [{{ task_metas }}].
+    The "dep" field denotes the ids of the previous prerequisite tasks that the current task relies on.
+    The "args" field MUST in [{{ args_type_list }}].
+    The language code MUST in [{{ supported_language_list }}]. If you are not sure about the value, use the language code of user's input.
 
   user: >-
-    The chat log [\n{{history}}\n] may contain the resources I mentioned. 
-    Now I input {\n{{input}}\n}. You should select tasks that you are VERY certain are the most useful to answer my request with minimal parsing. 
-    Pay more attention to the description of each task when selecting tasks. 
+    The chat log [\n{{history}}\n] may contain the resources I mentioned.
+    Now I input {\n{{input}}\n}. You should select tasks that you are VERY certain are the most useful to answer my request with minimal parsing.
+    Pay more attention to the description of each task when selecting tasks.
     Your response MUST be a valid JSON string without any additional note. If parsing fails, return an empty JSON [].
 
 generate_response:
   system: >-
-    #3 Response Generation Stage: With the task execution logs, you need to give a directly response to user's input.
+    #3 Response Generation Stage:
+    With the task execution logs, you need to give a directly response to user's input.
 
   user: >-
-    Yes. Please first think carefully and directly answer my request based on the tasks results. 
-    Some of the results may not always be correct and require you to make careful consideration in making decisions. 
-    Please filter out results that is not relevant to my request. 
-    If I request an image or an audio file, your response should also contain the path to the generated image or audio file. 
+    Yes. Please first think carefully and directly answer my request based on the tasks results.
+    Some of the results may not always be correct and require you to make careful consideration in making decisions.
+    Please filter out results that is not relevant to my request.
+    If I request an image or an audio file, your response should also contain the path to the generated image or audio file.
     If there is nothing in the results, please tell me you can't make it.
