@@ -52,7 +52,7 @@ def draw_rectangles(src_image_file: str, tgt_image_file: str | None = None,
         with tempfile.NamedTemporaryFile(mode='w+b', suffix='.' + src_image_suffix, delete=False) as tgt_image_file:
             image.save(tgt_image_file)
 
-    return tgt_image_file
+    return tgt_image_file.name
 
 
 def crop_rectangle(src_image_file: str, tgt_image_file: str | None = None,
@@ -66,4 +66,4 @@ def crop_rectangle(src_image_file: str, tgt_image_file: str | None = None,
         with tempfile.NamedTemporaryFile(mode='w+b', suffix='.' + src_image_suffix, delete=False) as tgt_image_file:
             cropped_image.save(tgt_image_file)
 
-    return tgt_image_file
+    return tgt_image_file.name
