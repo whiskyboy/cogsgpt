@@ -5,6 +5,8 @@ A conversational system which integrates ChatGPT with Azure Cognitive Services t
     <img src="https://img.shields.io/badge/%F0%9F%A4%97-Open%20in%20Spaces-blue" alt="Open in Spaces">
 </a>
 
+![cogsgpt-demo](./docs/imgs/cogsgpt-demo.png)
+
 *If you find this repo useful, please consider giving it a star! :)*
 
 ## Updates
