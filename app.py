@@ -129,8 +129,15 @@ with gr.Blocks(css=css) as demo:
     state = gr.State(value={})
 
     gr.Markdown("<h1><center>CogsGPT</center></h1>")
-    gr.Markdown("<p align='center' style='font-size: 20px;'>A multi-modal LLM integrated ChatGPT with Azure Cognitive Service, inspired by <a href='https://huggingface.co/spaces/microsoft/HuggingGPT'>HuggingGPT</a>.</p>")
-    gr.Markdown("<p align='center' style='font-size: 20px;'>See our <a href='https://github.com/whiskyboy/cogsgpt'>Project</a> for more details.</p>")
+    gr.Markdown("<p align='center' style='font-size: 20px;'>A conversational system which integrates ChatGPT with Azure Cognitive Services to achieve multimodal capabilities.</p>")
+    gr.Markdown("<p align='center' style='font-size: 18px;'>If you find it useful, please consider giving it a star on <a href='https://github.com/whiskyboy/cogsgpt'>Github</a>! :)</p>")
+    gr.Markdown("""
+    <div style="text-align: center;">
+        <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/whiskyboy/cogsgpt?style=social" style="display: inline-block;">
+        <img alt="GitHub forks" src="https://img.shields.io/github/forks/whiskyboy/cogsgpt?style=social" style="display: inline-block;">
+        <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/whiskyboy/cogsgpt?style=social" style="display: inline-block;">
+    </div>
+    """)
 
     with gr.Row():
         with gr.Column(scale=0.85):
