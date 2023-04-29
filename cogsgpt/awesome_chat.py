@@ -158,7 +158,8 @@ class CogsGPT():
             prompt=PromptTemplate(
                 template=system_prompt,
                 input_variables=system_prompt_vars,
-                template_format="jinja2"
+                template_format="jinja2",
+                validate_template=False
             )
         )
 
@@ -166,7 +167,8 @@ class CogsGPT():
             prompt=PromptTemplate(
                 template=user_prompt,
                 input_variables=user_prompt_vars,
-                template_format="jinja2"
+                template_format="jinja2",
+                validate_template=False
             )
         )
 
@@ -178,7 +180,8 @@ class CogsGPT():
                     prompt=PromptTemplate(
                         template=prestep["content"],
                         input_variables=presteps_vars,
-                        template_format="jinja2"
+                        template_format="jinja2",
+                        validate_template=False
                     )
                 )
             )
