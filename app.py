@@ -208,7 +208,7 @@ with gr.Blocks(css=css) as demo:
     gr.Examples(
         examples=[
             # CV
-            "Describe the content of the image: ./tests/examples/presentation.png",
+            "What can I make with these ingredients? ./tests/examples/ingredients.png",
             "Extract the text from the image: ./tests/examples/handwritten-note.jpg",
             "Select images of dog from the list: [./tests/examples/animal-1.jpg, ./tests/examples/animal-2.jpg, ./tests/examples/animal-3.jpg]",
             "Remove the background of the image: ./tests/examples/wedding.png",
