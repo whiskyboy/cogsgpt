@@ -21,6 +21,7 @@ from cogsgpt.schema import ArgsType, LanguageType
 from cogsgpt.llm import LLMManager
 from cogsgpt.cogsmodel import *
 from cogsgpt.logger import logger
+from cogsgpt.utils import num_tokens_from_string
 
 
 TaskMap = {
@@ -247,10 +248,14 @@ class CogsGPT():
             List[Dict]: A list of Azure Cognitive Service tasks.
         """
         messages = self._format_parse_task_prompt(human_input)
+        messages_tokens = num_tokens_from_string(messages.to_string())
         logger.debug(f"[Parse Task] Prompt: {messages.to_string()}")
+        logger.debug(f"[Parse Task] Prompt Tokens: {messages_tokens}")
 
         response = self.chatbot(messages.to_messages()).content
+        response_tokens = num_tokens_from_string(response)
         logger.info(f"[Parse Task] Result: {response}")
+        logger.debug(f"[Parse Task] Result Tokens: {response_tokens}")
 
         return json.loads(response)
 
@@ -292,10 +297,14 @@ class CogsGPT():
             str: Final response.
         """
         messages = self._format_generate_response_prompt(human_input, task_result_list)
+        messages_tokens = num_tokens_from_string(messages.to_string())
         logger.debug(f"[Generate Response] Prompt: {messages.to_string()}")
+        logger.debug(f"[Generate Response] Prompt Tokens: {messages_tokens}")
 
         response = self.chatbot(messages.to_messages()).content
+        response_tokens = num_tokens_from_string(response)
         logger.info(f"[Generate Response] Result: {response}")
+        logger.debug(f"[Generate Response] Result Tokens: {response_tokens}")
 
         return response
 
