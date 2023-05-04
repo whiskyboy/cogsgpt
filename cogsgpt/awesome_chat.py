@@ -72,6 +72,7 @@ class CogsGPT():
                  request_timeout: int = 60,
                  max_retries: int = 6,
                  max_tokens: int | None = None,
+                 save_history: bool = True,
                  verbose: bool = False,
                  ) -> None:
         """
@@ -85,6 +86,7 @@ class CogsGPT():
             request_timeout (int, optional): The timeout of the OpenAI model. Defaults to 60.
             max_retries (int, optional): The maximum number of retries of the OpenAI model. Defaults to 6.
             max_tokens (int | None, optional): The maximum number of tokens of the OpenAI model. Defaults to None.
+            save_history (bool, optional): Whether to save the chat history. Defaults to True.
             verbose (bool, optional): Whether to print verbose logs. Defaults to False.
 
         Examples:
@@ -147,6 +149,8 @@ class CogsGPT():
             max_tokens=max_tokens,
             verbose=verbose,
         ).LLM
+
+        self._save_history = save_history
 
         if verbose:
             logger.setLevel("DEBUG")
@@ -335,7 +339,8 @@ class CogsGPT():
         response = self.generate_response(human_input, task_result_list)
 
         # 4. save human_input/response into memory
-        logger.info("[CogsGPT] Saving context...")
-        self.save_context(human_input, response)
+        if self._save_history:
+            logger.info("[CogsGPT] Saving context...")
+            self.save_context(human_input, response)
 
         return response
