@@ -1,47 +1,11 @@
 [
     {
         "role":"user",
-        "content":"Extract the textual content from the image file: a.png"
+        "content":"Write a poem for the image a.png."
     },
     {
         "role":"assistant",
-        "content":"[{\"task\": \"form-recognizer\", \"id\": 0, \"dep\": [-1], \"args\": {\"file\": \"a.png\"}}, {\"task\": \"OCR\", \"id\": 1, \"dep\": [-1], \"args\": {\"image\": \"a.png\"}}]"
-    },
-
-    {
-        "role":"user",
-        "content":"Here is an invoice file: b.pdf. Please list all the items and their prices in the invoice."
-    },
-    {
-        "role":"assistant",
-        "content":"[{\"task\": \"invoice-form\", \"id\": 0, \"dep\": [-1], \"args\": {\"file\": \"b.pdf\"}}]"
-    },
-
-    {
-        "role":"user",
-        "content":"How many sheep are there in the images: c.jpg, d.jpg, and e.jpg?"
-    },
-    {
-        "role":"assistant",
-        "content":"[{\"task\": \"object-detection\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"c.jpg\"}}, {\"task\": \"object-detection\", \"id\": 1, \"dep\": [-1], \"args\": {\"image\": \"d.jpg\"}}, {\"task\": \"object-detection\", \"id\": 2, \"dep\": [-1], \"args\": {\"image\": \"e.jpg\"}}, {\"task\": \"text-generation\", \"id\": 3, \"dep\": [0,1,2], \"args\": {\"text\": \"How many sheep are there in: <GENERATED>-0,<GENERATED>-1,<GENERATED>-2\"}}]"
-    },
-
-    {
-        "role":"user",
-        "content":"请提取出下面这段话中提到的实体：微软总裁布拉德·史密斯（Brad Smith）周六表示，中国的研究机构和公司将成为ChatGPT的主要竞争对手。"
-    },
-    {
-        "role":"assistant",
-        "content":"[{\"task\": \"entity-recognition\", \"id\": 0, \"dep\": [-1], \"args\": {\"text\": \"微软总裁布拉德·史密斯（Brad Smith）周六表示，中国的研究机构和公司将成为ChatGPT的主要竞争对手。\", \"src_language\": \"Chinese\"}}]"
-    },
-
-    {
-        "role":"user",
-        "content":"Given a picture f.png, please write a poem based on the description of the picture."
-    },
-    {
-        "role":"assistant",
-        "content":"[{\"task\": \"image-caption\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"f.png\"}}, {\"task\": \"text-generation\", \"id\": 1, \"dep\": [0], \"args\": {\"text\": \"Write a poem based on: <GENERATED>-0\"}}]"
+        "content":"[{\"task\": \"image-caption\", \"id\": 0, \"dep\": [-1], \"args\": {\"image\": \"a.png\"}}, {\"task\": \"object-detection\", \"id\": 1, \"dep\": [-1], \"args\": {\"image\": \"a.png\"}}]"
     },
 
     {

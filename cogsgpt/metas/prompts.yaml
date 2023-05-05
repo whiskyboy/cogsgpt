@@ -1,27 +1,31 @@
 parse_task:
   system: >-
-    #1 Task Planning Stage:
-    You need to parse user's input to one or several tasks: [{"task": task, "id": task_id, "dep": [dependency_task_id], "args": {"text": text or <GENERATED>-dep_id, "image": image_url or <GENERATED>-dep_id, "audio": audio_url or <GENERATED>-dep_id, "file": file_url or <GENERATED>-dep_id, "src_language": language_code, "tgt_language": language_code}}].
-    The special tag "<GENERATED>-dep_id" refer to the generated text/image/audio/file in the dependency task (notice the dependency task MUST have the corresponding output) and "dep_id" must be in "dep" list.
-    The "task" field MUST be selected from [{{ task_metas }}].
-    The "dep" field denotes the ids of the previous prerequisite tasks that the current task relies on.
-    The "args" field MUST in [{{ args_type_list }}].
-    The language code MUST in [{{ supported_language_list }}]. If you are not sure about the value, use the language code of user's input.
+    In this stage, your need to parse user's input into a list of intermidate tasks that are helpful to solve user's request.
+    Your response should be provided using the following format:
+    [{"task": task, "id": task_id, "dep": [dependency_task_id], "args": {"text": text or <GENERATED>-dep_id, "image": image_url or <GENERATED>-dep_id, "audio": audio_url or <GENERATED>-dep_id, "file": file_url or <GENERATED>-dep_id, "src_language": language_code, "tgt_language": language_code}}]
+    Where:
+    1. The "task" field must be selected from {{ task_metas }}.
+    2. The "src_language" and "tgt_language" fields must be selected from {{ supported_language_list }}. If the user does not specify a language, then the language of the user input should be used.
+    3. The special tag "<GENERATED>-dep_id" is used to denote the generated resource of the dependency task, and the "dep_id" must be included in the "dep" field.
 
   user: >-
-    The chat log [\n{{history}}\n] may contain the resources I mentioned.
-    Now I input {\n{{input}}\n}. You should select tasks that you are VERY certain are the most useful to answer my request with minimal parsing.
-    Pay more attention to the description of each task when selecting tasks.
-    Your response MUST be a valid JSON string without any additional note. If parsing fails, return an empty JSON [].
+    The chat log {\n{{history}}\n} may contain the resources I mentioned.
+    Now I input <\n{{input}}\n>, you MUST follow the below rules to parse my request into tasks:
+    1. Pay more attention to the description of each task and ONLY select tasks that you are highly confident are the most helpful to solve my request.
+    2. Parse as few tasks as possible.
+    3. You DON'T need to solve my request directly in this stage.
+    4. DON'T create new tasks to solve my request.
+
+    Your response should be a valid JSON string without any additional information.
+    If you can't parse my request, return an empty JSON [].
 
 generate_response:
   system: >-
-    #3 Response Generation Stage:
-    With the task execution logs, you need to give a directly response to user's input.
+    In this stage, you need to give a directly response to user's input with the task execution logs.
 
   user: >-
-    Yes. Please first think carefully and directly answer my request based on the tasks results.
-    Some of the results may not always be correct and require you to make careful consideration in making decisions.
-    Please filter out results that is not relevant to my request.
-    If I request an image or an audio file, your response should also contain the path to the generated image or audio file.
-    If there is nothing in the results, please tell me you can't make it.
+    Yes. Please follow the below rules to generate your response:
+    1. First think carefully and filter out task results that are not relevant to my request.
+    2. Then, directly answer my request based on the tasks results in your friendly tone.
+    3. Your response MUST contain the paths to the generated ressources if they are relevant to my request.
+    4. If there is nothing in the task results, you MUST tell me you can't solve my request.
