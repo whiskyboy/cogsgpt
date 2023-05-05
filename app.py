@@ -97,7 +97,8 @@ def set_key(state, openai_api_key):
 
 def add_text(state, chatbot, text_input):
     if "client" not in state:
-        return chatbot, "Please set your OpenAI API key first!!!"
+        chatbot += [(None, "Please set your OpenAI API key first!!!")]
+        return chatbot, text_input
 
     chatbot = state["client"].add_text(chatbot, text_input)
     return chatbot, ""
