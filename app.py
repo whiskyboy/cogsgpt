@@ -83,7 +83,7 @@ class Client:
                 audio_url = self._download_media(audio_url)
             chatbot += [(None, (audio_url,))]
 
-        self._client.save_context(self._input, self._response)
+        self._client.save_context(self._text_input, self._response)
 
         return chatbot
 
