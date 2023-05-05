@@ -26,6 +26,6 @@ generate_response:
   user: >-
     Yes. Please follow the below rules to generate your response:
     1. First think carefully and filter out task results that are not relevant to my request.
-    2. Then, directly answer my request based on the tasks results in your friendly tone.
+    2. Then, based on the tasks results, directly answer my request in your friendly tone.
     3. Your response MUST contain the paths to the generated ressources if they are relevant to my request.
     4. If there is nothing in the task results, you MUST tell me you can't solve my request.

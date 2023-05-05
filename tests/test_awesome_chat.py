@@ -8,7 +8,11 @@ if __name__ == "__main__":
     cogs_gpt = CogsGPT(temperature=0.2, verbose=True)
 
     test_cases = [
+        # ChitChat
+        "Hi, how are you?",
+        
         # CV
+        "What can I make with these ingredients? ./tests/examples/ingredients.png",
         "Describe the content of the image: ./tests/examples/presentation.png",
         "Extract the text from the image: ./tests/examples/handwritten-note.jpg",
         "How many people are there in the image: ./tests/examples/family.png?", 
@@ -23,7 +27,7 @@ if __name__ == "__main__":
         # Form
         "List all the items and their prices from the receipt: ./tests/examples/receipt.png",
         "Extract the service address field from the invoice: ./tests/examples/sample-invoice.pdf",
-        "Extract the flight schedule table from the file: ./tests/examples/flight-schedule.png, and list all the flights with China Eastern airline.",
+        "List all the flights with China Eastern airline in the flight schedule table from the file: ./tests/examples/flight-schedule.png.",
         
         # Complex task
         "Summarize the content in the audio file: ./tests/examples/voa-1min-news.wav, and translate it into Chinese. Then read it out.",

@@ -83,7 +83,7 @@ class Client:
                 audio_url = self._download_media(audio_url)
             chatbot += [(None, (audio_url,))]
 
-        # self._client.save_context(self._input, self._response)
+        self._client.save_context(self._input, self._response)
 
         return chatbot
 
@@ -210,14 +210,12 @@ with gr.Blocks(css=css) as demo:
             # CV
             "What can I make with these ingredients? ./tests/examples/ingredients.png",
             "Extract the text from the image: ./tests/examples/handwritten-note.jpg",
-            "Select images of dog from the list: [./tests/examples/animal-1.jpg, ./tests/examples/animal-2.jpg, ./tests/examples/animal-3.jpg]",
-            "Remove the background of the image: ./tests/examples/wedding.png",
             # Speech
             "Convert the text 'CogsGPT is a multi-modal LLM integrated ChatGPT with Azure Cognitive Service' into speech.",
             "Extract the content of audio: ./tests/examples/cogsgpt.wav",
             # Form
             "List all the items and their prices from the receipt: ./tests/examples/receipt.png",
-            "Extract the flight schedule table from the file: ./tests/examples/flight-schedule.png, and list all the flights with China Eastern airline.",
+            "List all the flights with China Eastern airline in the flight schedule table from the file: ./tests/examples/flight-schedule.png.",
             # Complex task
             "Summarize the content in the audio file: ./tests/examples/voa-1min-news.wav, and translate it into Chinese. Then read it out.",
         ],
