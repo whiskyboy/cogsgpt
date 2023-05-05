@@ -24,6 +24,8 @@ A conversational system which integrates ChatGPT with Azure Cognitive Services t
 ### What is CogsGPT
 CogsGPT is a conversational system which utilizes the ChatGPT model as the controller and integrates with Azure Cognitive Services as collaborative executors to achieve multimodal capabilities to some extent. Using CogsGPT, you can simply access Azure Cognitive Services via natural language to process image or audio inputs, without any knowledge of the underlying APIs. You can even ask CogsGPT to perform some complex tasks such as summarizing a long speech into a short audio clip while retaining the main information. CogsGPT will automatically decide which services to use and how to use them to achieve the goal.
 
+You can find the list of pre-built services supported by CogsGPT [here](./cogsgpt/metas/task_metas.yaml).
+
 ### How does CogsGPT work
 
 The workflow of CogsGPT consists of three stages:
