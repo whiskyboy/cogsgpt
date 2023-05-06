@@ -40,15 +40,17 @@ class Client:
         
         chatbot += [(self._text_input, None)]
 
-        image_urls, audio_urls = self._extract_medias(self._text_input)
-        for image_url in image_urls:
+        self._image_inputs, self._audio_inputs = self._extract_medias(self._text_input)
+        for image_url in self._image_inputs:
             if image_url.startswith('http'):
                 image_url = self._download_media(image_url)
-            chatbot += [((image_url,), None)]
-        for audio_url in audio_urls:
+            if os.path.exists(image_url):
+                chatbot += [((image_url,), None)]
+        for audio_url in self._audio_inputs:
             if audio_url.startswith('http'):
                 audio_url = self._download_media(audio_url)
-            chatbot += [((audio_url,), None)]
+            if os.path.exists(audio_url):
+                chatbot += [((audio_url,), None)]
 
         return chatbot
 
@@ -73,15 +75,21 @@ class Client:
         self._response = self._client.generate_response(self._text_input, self._task_result_list)
         chatbot += [(None, self._response)]
 
-        image_urls, audio_urls = self._extract_medias(self._response)
-        for image_url in image_urls:
+        image_outputs, audio_outputs = self._extract_medias(self._response)
+        for image_url in image_outputs:
+            if image_url in self._image_inputs:
+                continue
             if image_url.startswith('http'):
                 image_url = self._download_media(image_url)
-            chatbot += [(None, (image_url,))]
-        for audio_url in audio_urls:
+            if os.path.exists(image_url):
+                chatbot += [(None, (image_url,))]
+        for audio_url in audio_outputs:
+            if audio_url in self._audio_inputs:
+                continue
             if audio_url.startswith('http'):
                 audio_url = self._download_media(audio_url)
-            chatbot += [(None, (audio_url,))]
+            if os.path.exists(audio_url):
+                chatbot += [(None, (audio_url,))]
 
         # self._client.save_context(self._text_input, self._response)
 
